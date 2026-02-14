@@ -2,9 +2,7 @@ import java.io.*;
 
 public class FileReaderUsers {
 
-    public static void main(String[] args) {
-        //file name
-        String fileName = "UsersTest.csv";
+    public static void readUsers(String fileName) {
         BufferedReader reader = null;
         String line = "";
 
