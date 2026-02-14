@@ -3,5 +3,6 @@ public class FileReaderMain {
 
         //calls users reader class with this file name as a parameter
         FileReaderUsers.readUsers("UsersTest.csv");
+        FileReaderEvents.readEvents("EventsTest.csv");
     }
 }

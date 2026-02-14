@@ -1,0 +1,5 @@
+eventId,title,dateTime,location,capacity,status,eventType,topic,speakerName,ageRestriction
+E101,Intro to Git,2026-02-12 14:30,Library 101,40,Active,Workshop,Version Control,,
+E205,AI Safety Talk,2026-03-01 10:00,MACN 113,120,Active,Seminar,,Dr. Noor,
+E330,Winter Concert,2026-03-10 19:00,UC Hall,300,Active,Concert,,,18+
+E412,Advanced Java,2026-04-15 09:00,Online,100,Cancelled,Workshop,Software Architecture,,
