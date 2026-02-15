@@ -1,8 +1,8 @@
 import java.io.*;
 
-public class FileReaderEvents {
+public class FileReaderBookings {
 
-    public static void readEvents(String fileName) {
+    public static void readBookings(String fileName) {
         BufferedReader reader = null;
         String line = "";
 
@@ -13,10 +13,10 @@ public class FileReaderEvents {
             while((line = reader.readLine()) != null) {
 
                 //looks for comma separator
-                String[] events = line.split(",");
+                String[] bookings = line.split(",");
 
                 //prints the csv file
-                for(String index : events) {
+                for(String index : bookings) {
                     System.out.println(index);
                 }
             }
