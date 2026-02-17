@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.MainViewController">
+   <top>
+      <MenuBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="User Management">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#loadUserScreen" text="Manage Users" />
+               </items></Menu>
+          <Menu mnemonicParsing="false" text="Event Management">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#loadEventScreen" text="Manage Events" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Booking Management">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#loadBookingScreen" text="Manage Bookings" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Waitlist Management">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#loadWaitlistScreen" text="Manage Waitlist" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <StackPane fx:id="contentArea" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
