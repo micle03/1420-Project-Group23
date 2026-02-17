@@ -1,2 +1,3 @@
-Shannon, 0010
-Hommer Simpson, 0002
+
+Shannon, 0010, Waitlisted
+Hommer Simpson, 0002, Waitlisted

@@ -3,6 +3,8 @@ import java.nio.file.*;
 import java.util.*;
 import java.io.BufferedReader;
 
+
+
 public class addToWaitlist {
 
     private Path path1;
@@ -37,7 +39,7 @@ public class addToWaitlist {
                     String id = parts[1].trim();
 
                     if (!ids.contains(id)){
-                        writer.write(line);
+                        writer.write(line + ", Waitlisted");
                         writer.newLine();
 
                         ids.add(id);
@@ -51,10 +53,10 @@ public class addToWaitlist {
 
         }
 
-
     }
 
     public static void main(String[] args) throws Exception {
+
         Path path1 = Paths.get("Waitlist/src/users.txt");
         Path path2 = Paths.get("Waitlist/src/Waitlist.txt");
 
