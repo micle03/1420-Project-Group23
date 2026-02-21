@@ -1,3 +1,5 @@
+package FileReadersPackage;
+
 import java.io.*;
 
 public class FileReaderBookings {
@@ -14,11 +16,6 @@ public class FileReaderBookings {
 
                 //looks for comma separator
                 String[] bookings = line.split(",");
-
-                //prints the csv file
-                for(String index : bookings) {
-                    System.out.println(index);
-                }
             }
 
             //closes reader
