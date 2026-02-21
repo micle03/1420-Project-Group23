@@ -3,7 +3,7 @@ package MainPackage;
 import java.util.ArrayList;
 import java.util.List;
 
-//moved everything to packages for better readability so now have to import
+import EventClassesPackage.Event;
 import FileReadersPackage.FileReaderBookings;
 import FileReadersPackage.FileReaderEvents;
 import FileReadersPackage.FileReaderUsers;
@@ -11,8 +11,9 @@ import UserClassesPackage.User;
 
 public class FileReaderMain {
 
-    //global list of all the users in the system
+    //global list of all the users and events in the system
     public static List<User> systemUsers = new ArrayList<>();
+    public static List<Event> systemEvents = new ArrayList<>();
 
     public static void main(String[] args) {
 

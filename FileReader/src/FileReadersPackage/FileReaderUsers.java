@@ -24,7 +24,7 @@ public class FileReaderUsers {
                 String[] users = line.split(",");
 
                 //gets the users data from the csv and put it into its own temp string
-                String userId = users[0];
+                String userID = users[0];
                 String name = users[1];
                 String email = users[2];
                 String userType = users[3];
@@ -34,11 +34,11 @@ public class FileReaderUsers {
 
                 //goes through each type of user to send to the correct subclass
                 if (userType.equals("Student")) {
-                    newUser = new Student(userId, name, email);
+                    newUser = new Student(userID, name, email);
                 } else if (userType.equals("Staff")) {
-                    newUser = new Staff(userId, name, email);
+                    newUser = new Staff(userID, name, email);
                 } else if (userType.equals("Guest")) {
-                    newUser = new Guest(userId, name, email);
+                    newUser = new Guest(userID, name, email);
                 }
 
                 //adds the new user to the global list
