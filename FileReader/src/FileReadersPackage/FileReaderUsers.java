@@ -3,9 +3,6 @@ package FileReadersPackage;
 import java.io.*;
 
 import MainPackage.FileReaderMain;
-import UserClassesPackage.Guest;
-import UserClassesPackage.Staff;
-import UserClassesPackage.Student;
 import UserClassesPackage.User;
 
 public class FileReaderUsers {
@@ -30,16 +27,7 @@ public class FileReaderUsers {
                 String userType = users[3];
 
                 //creates a new user
-                User newUser = null;
-
-                //goes through each type of user to send to the correct subclass
-                if (userType.equals("Student")) {
-                    newUser = new Student(userID, name, email);
-                } else if (userType.equals("Staff")) {
-                    newUser = new Staff(userID, name, email);
-                } else if (userType.equals("Guest")) {
-                    newUser = new Guest(userID, name, email);
-                }
+                User newUser = new User(userID, name, email, userType);
 
                 //adds the new user to the global list
                 FileReaderMain.systemUsers.add(newUser);

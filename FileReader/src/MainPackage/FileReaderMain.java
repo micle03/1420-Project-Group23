@@ -26,5 +26,6 @@ public class FileReaderMain {
         System.out.println(systemUsers.get(1).getUserID());
         System.out.println(systemUsers.get(1).getName());
         System.out.println(systemUsers.get(1).getEmail());
+        System.out.println(systemUsers.get(1).getUserType());
     }
 }
