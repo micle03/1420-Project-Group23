@@ -8,12 +8,14 @@ import FileReadersPackage.FileReaderBookings;
 import FileReadersPackage.FileReaderEvents;
 import FileReadersPackage.FileReaderUsers;
 import UserClassesPackage.User;
+import BookingClassesPackage.Booking;
 
 public class FileReaderMain {
 
-    //global list of all the users and events in the system
+    //global list of all the users, events, amd bookings in the system
     public static List<User> systemUsers = new ArrayList<>();
     public static List<Event> systemEvents = new ArrayList<>();
+    public static List<Booking> systemBookings = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -24,8 +26,7 @@ public class FileReaderMain {
 
         //shows how the getters work
         System.out.println(systemUsers.get(1).getUserID());
-        System.out.println(systemUsers.get(1).getName());
-        System.out.println(systemUsers.get(1).getEmail());
-        System.out.println(systemUsers.get(1).getUserType());
+        System.out.println(systemEvents.get(2).getStatus());
+        System.out.println(systemBookings.get(3).getUserID());
     }
 }

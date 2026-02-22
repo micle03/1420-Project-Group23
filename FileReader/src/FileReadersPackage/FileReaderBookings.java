@@ -1,5 +1,8 @@
 package FileReadersPackage;
 
+import MainPackage.FileReaderMain;
+import BookingClassesPackage.Booking;
+
 import java.io.*;
 
 public class FileReaderBookings {
@@ -11,11 +14,27 @@ public class FileReaderBookings {
         try {
             reader = new BufferedReader(new FileReader(fileName));
 
+            //reads the first line outside the while loop to skip the header titles
+            reader.readLine();
+
             //reads the csv file until its null space
             while((line = reader.readLine()) != null) {
 
                 //looks for comma separator
                 String[] bookings = line.split(",");
+
+                //gets the booking data from the csv file and trims extra spaces
+                String bookingID = bookings[0].trim();
+                String userID = bookings[1].trim();
+                String eventID = bookings[2].trim();
+                String createdAt = bookings[3].trim();
+                String bookingStatus = bookings[4].trim();
+
+                //creates a new booking
+                Booking newBooking = new Booking(bookingID, userID, eventID, createdAt, bookingStatus);
+
+                //adds the new booking to the global bookings list
+                FileReaderMain.systemBookings.add(newBooking);
             }
 
             //closes reader
