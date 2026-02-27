@@ -3,7 +3,7 @@ package Waitlist;
 import java.io.File;
 import java.io.IOException;
 
-public class createWaitlist { // Class names should be PascalCase
+public class createWaitlist {
 
     public String eventName;
 
@@ -13,7 +13,7 @@ public class createWaitlist { // Class names should be PascalCase
 
     public void createFile() {
         String fileName = eventName + "_Waitlist.txt";
-        // Ensure the "Waitlist/src/" directory exists, or this will throw an IOException
+
         File file = new File("Waitlist/src/" + fileName);
 
         if (file.exists()) {
@@ -32,7 +32,6 @@ public class createWaitlist { // Class names should be PascalCase
         }
     }
 
-    // The main method must be public static void main(String[] args)
     public static void main(String[] args) {
         String eventName = "COOPsession";
         createWaitlist waitlist = new createWaitlist(eventName);
