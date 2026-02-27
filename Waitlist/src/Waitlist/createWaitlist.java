@@ -1,3 +1,5 @@
+package Waitlist;
+
 import java.io.File;
 import java.io.IOException;
 
