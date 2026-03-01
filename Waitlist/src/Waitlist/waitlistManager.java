@@ -21,7 +21,7 @@ public class waitlistManager {
 
     public void addToWaitlist(String eventId, String userData) throws IOException {
         Path path = Paths.get(directory + eventId + "_Waitlist.txt");
-        String ids = userData.split(",")[1].trim();
+        String ids = userData.split(",")[0].trim();
 
         List<String> lines = Files.readAllLines(path);
 
