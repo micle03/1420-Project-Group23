@@ -3,11 +3,13 @@ package com.group23.FileReaders;
 import java.io.*;
 
 import com.group23.MainPackage.FileReaderMain;
-import com.group23.Users.User;
+import com.group23.Users.service.UserManager;
+import com.group23.Users.model.User;
 
 public class FileReaderUsers {
 
     public static void readUsers(String fileName) {
+        UserManager userManager = new UserManager();
         BufferedReader reader = null;
         String line = "";
 
@@ -30,7 +32,7 @@ public class FileReaderUsers {
                 String userType = users[3].trim();
 
                 //creates a new user
-                User newUser = new User(userID, name, email, userType);
+                User newUser = userManager.createUser(userID, name, email, userType);
 
                 //adds the new user to the global list
                 FileReaderMain.systemUsers.add(newUser);

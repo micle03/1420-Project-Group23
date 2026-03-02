@@ -1,14 +1,14 @@
-package com.group23.service;
+package com.group23.Users.service;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.group23.model.User;
-import com.group23.model.Student;
-import com.group23.model.Staff;
-import com.group23.model.Guest;
+import com.group23.Users.model.User;
+import com.group23.Users.model.Student;
+import com.group23.Users.model.Staff;
+import com.group23.Users.model.Guest;
 
 public class UserManager {
     //String must be a key, user a value->Create unique map

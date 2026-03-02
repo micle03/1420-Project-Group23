@@ -1,4 +1,4 @@
-package com.group23.model;
+package com.group23.Users.model;
 
 import java.util.Objects;
 

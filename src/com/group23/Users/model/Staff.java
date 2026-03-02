@@ -1,4 +1,4 @@
-package com.group23.model;
+package com.group23.Users.model;
 
 public class Staff extends User {
     public Staff(String userId, String name, String email) {

@@ -7,7 +7,7 @@ import com.group23.Events.Event;
 import com.group23.FileReaders.FileReaderBookings;
 import com.group23.FileReaders.FileReaderEvents;
 import com.group23.FileReaders.FileReaderUsers;
-import com.group23.Users.User;
+import com.group23.Users.model.User;
 import com.group23.Bookings.Booking;
 
 public class FileReaderMain {
@@ -25,8 +25,8 @@ public class FileReaderMain {
         FileReaderBookings.readBookings("BookingsTest.csv");
 
         //shows how the getters work
-        System.out.println(systemUsers.get(1).getUserID());
-        System.out.println(systemEvents.get(2).getStatus());
-        System.out.println(systemBookings.get(3).getUserID());
+        //System.out.println(systemUsers.get(1).getUserID());
+        //System.out.println(systemEvents.get(2).getStatus());
+        //System.out.println(systemBookings.get(3).getUserID());
     }
 }
