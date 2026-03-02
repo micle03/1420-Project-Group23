@@ -1,4 +1,4 @@
-package BookingClassesPackage;
+package com.group23.Bookings;
 
 public class Booking {
     private String bookingID, userID, eventID, createdAt, bookingStatus;

@@ -1,7 +1,7 @@
-package FileReadersPackage;
+package com.group23.FileReaders;
 
-import MainPackage.FileReaderMain;
-import BookingClassesPackage.Booking;
+import com.group23.MainPackage.FileReaderMain;
+import com.group23.Bookings.Booking;
 
 import java.io.*;
 

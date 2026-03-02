@@ -1,4 +1,4 @@
-package EventClassesPackage;
+package com.group23.Events;
 
 public class Event {
 

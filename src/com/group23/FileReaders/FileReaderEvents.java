@@ -1,10 +1,10 @@
-package FileReadersPackage;
+package com.group23.FileReaders;
 
-import EventClassesPackage.Concert;
-import EventClassesPackage.Event;
-import EventClassesPackage.Seminar;
-import EventClassesPackage.Workshop;
-import MainPackage.FileReaderMain;
+import com.group23.Events.Concert;
+import com.group23.Events.Event;
+import com.group23.Events.Seminar;
+import com.group23.Events.Workshop;
+import com.group23.MainPackage.FileReaderMain;
 
 import java.io.*;
 

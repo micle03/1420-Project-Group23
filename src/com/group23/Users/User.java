@@ -1,4 +1,4 @@
-package UserClassesPackage;
+package com.group23.Users;
 
 public class User {
     //private variables so they can't be changed after read in

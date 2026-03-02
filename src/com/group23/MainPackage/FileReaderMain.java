@@ -1,14 +1,14 @@
-package MainPackage;
+package com.group23.MainPackage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import EventClassesPackage.Event;
-import FileReadersPackage.FileReaderBookings;
-import FileReadersPackage.FileReaderEvents;
-import FileReadersPackage.FileReaderUsers;
-import UserClassesPackage.User;
-import BookingClassesPackage.Booking;
+import com.group23.Events.Event;
+import com.group23.FileReaders.FileReaderBookings;
+import com.group23.FileReaders.FileReaderEvents;
+import com.group23.FileReaders.FileReaderUsers;
+import com.group23.Users.User;
+import com.group23.Bookings.Booking;
 
 public class FileReaderMain {
 

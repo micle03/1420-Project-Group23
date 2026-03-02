@@ -1,9 +1,9 @@
-package FileReadersPackage;
+package com.group23.FileReaders;
 
 import java.io.*;
 
-import MainPackage.FileReaderMain;
-import UserClassesPackage.User;
+import com.group23.MainPackage.FileReaderMain;
+import com.group23.Users.User;
 
 public class FileReaderUsers {
 
