@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<VBox fx:controller="com.group23.controllers.BookingViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.BookingViewController">
+   <children>
+      <Label text="Booking Management">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="10.0" top="5.0" />
+         </VBox.margin></Label>
+      <Label text="Book an Event">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="15.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="600.0">
+         <children>
+            <ChoiceBox prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </ChoiceBox>
+            <ChoiceBox prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </ChoiceBox>
+            <Button mnemonicParsing="false" text="Select" />
+         </children>
+      </HBox>
+      <Label text="Cancel a Booking">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="15.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ChoiceBox prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </ChoiceBox>
+            <ChoiceBox prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </ChoiceBox>
+            <Button mnemonicParsing="false" text="Select" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox fx:controller="com.group23.controllers.UserViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.UserViewController">
    <children>
+      <Label text="User Management">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="10.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <HBox alignment="CENTER_LEFT" prefHeight="101.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" text="Add User">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
       <SplitPane dividerPositions="0.4615641711229946" prefHeight="376.0" prefWidth="600.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="313.0">

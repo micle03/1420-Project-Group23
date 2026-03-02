@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<VBox fx:controller="com.group23.controllers.WaitlistViewManagement" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.WaitlistViewManagement">
+   <children>
+      <Label text="Waitlist Management">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="10.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0">
+         <children>
+            <ChoiceBox prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+      <TableView prefHeight="308.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" text="Remove Booking" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
