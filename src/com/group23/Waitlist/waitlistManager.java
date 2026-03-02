@@ -1,11 +1,11 @@
-package Waitlist;
+package com.group23.Waitlist;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
 public class waitlistManager {
-    private final String directory = "Waitlist/src/";
+    private final String directory = "src/com/group23/Waitlist/src/";
 
     public void createWaitlist(String eventId) {
         File file = new File(directory + eventId + "_Waitlist.txt");
