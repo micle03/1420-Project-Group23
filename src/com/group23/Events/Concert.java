@@ -8,6 +8,9 @@ public class Concert extends Event {
         //inherits parent class attributes
         super(eventID, title, dateTime, location, capacity, status);
 
+        if (ageRestriction == null || ageRestriction.isBlank()) {
+            throw new IllegalArgumentException("Age restriction is required.");
+
         //concert specific variable
         this.ageRestriction = ageRestriction;
     }
