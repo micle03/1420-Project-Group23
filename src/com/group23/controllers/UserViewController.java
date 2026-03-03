@@ -14,16 +14,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UserViewController implements Initializable {
-  @FXML
-  private TableView<User> userTable;
-  @FXML
-  private TableColumn<User, String> idColumn;
-  @FXML
-  private TableColumn<User, String> nameColumn;
-  @FXML
-  private TableColumn<User, String> emailColumn;
-  @FXML
-  private TableColumn<User, String> typeColumn;
+  @FXML private TableView<User> userTable;
+  @FXML private TableColumn<User, String> idColumn;
+  @FXML private TableColumn<User, String> nameColumn;
+  @FXML private TableColumn<User, String> emailColumn;
+  @FXML private TableColumn<User, String> typeColumn;
 
   private UserManager userManager = UserManager.getInstance();
 
@@ -44,5 +39,12 @@ public class UserViewController implements Initializable {
   @FXML
   private void viewCreateUserForm() {
     MainViewController.getInstance().loadCreateUserScreen();
+  }
+
+  @FXML
+  private void handleViewUser() {
+    User selectedUser = userTable.getSelectionModel().getSelectedItem();
+    if (selectedUser == null) return;
+    MainViewController.getInstance().loadUserDetailScreen(selectedUser);
   }
 }

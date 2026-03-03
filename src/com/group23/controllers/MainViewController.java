@@ -1,5 +1,6 @@
 package com.group23.controllers;
 
+import com.group23.Users.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,10 +9,7 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
 public class MainViewController {
-
-  @FXML
-  private StackPane contentArea;
-
+  @FXML private StackPane contentArea;
   private static MainViewController instance;
 
   @FXML
@@ -27,7 +25,6 @@ public class MainViewController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/user-view.fxml"));
       Parent page = loader.load();
 
-      // Only for UserController
       UserViewController controller = loader.getController();
       controller.reloadTable();
 
@@ -48,6 +45,19 @@ public class MainViewController {
 
   public void loadCreateUserScreen() {
     loadPage("/com/group23/create-user-view.fxml");
+  }
+  public void loadUserDetailScreen(User user) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/user-detail-view.fxml"));
+      Parent page = loader.load();
+
+      UserDetailViewController controller = loader.getController();
+      controller.setUser(user);
+
+      contentArea.getChildren().setAll(page);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void loadPage(String fxmlFile) {
