@@ -60,6 +60,7 @@ public abstract class Event {
     public abstract EventType getEventType();
     public abstract String getTypeSpecificDetails();
 
+     @Override
     public String toString() {
         return "ID: " + eventId +
                 " | Title: " + title +
