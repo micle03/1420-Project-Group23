@@ -1,5 +1,8 @@
 package com.group23.Events;
 
+import java.time.LocalDateTime;
+
+
 public class Seminar extends Event {
     //private variable for speaker
     private String speakerName;
@@ -16,4 +19,15 @@ public class Seminar extends Event {
     public String getSpeakerName() {
         return speakerName;
     }
+    public void setSpeakerName(String speakerName) { this.speakerName = speakerName; }
+
+     @Override
+    public EventType getEventType() {
+        return EventType.SEMINAR;
+    }
+    @Override
+    public String getTypeSpecificDetails() {
+        return "Speaker: " + speakerName;
+    }
+    
 }
