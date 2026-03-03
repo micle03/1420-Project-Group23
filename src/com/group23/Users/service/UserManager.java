@@ -13,6 +13,12 @@ import com.group23.Users.model.Guest;
 public class UserManager {
     //String must be a key, user a value->Create unique map
     private final Map<String, User> usersById = new HashMap<>();
+
+    private static final UserManager instance = new UserManager();
+    public static UserManager getInstance() {
+        return instance;
+    }
+
     //Creates subclass based on user type
     public User createUser(String userId, String name, String email, String userType) {
 

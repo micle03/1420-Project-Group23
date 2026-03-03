@@ -8,27 +8,46 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
 public class MainViewController {
+
   @FXML
   private StackPane contentArea;
 
-  @FXML
-  public void loadUserScreen() {
-    loadPage("/com/group23/user-view.fxml");
-  }
+  private static MainViewController instance;
 
   @FXML
+  public void initialize() {
+    instance = this;
+  }
+
+  public static MainViewController getInstance() {
+    return instance;
+  }
+  public void loadUserScreen() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/user-view.fxml"));
+      Parent page = loader.load();
+
+      // Only for UserController
+      UserViewController controller = loader.getController();
+      controller.reloadTable();
+
+      contentArea.getChildren().setAll(page);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
   public void loadEventScreen() {
     loadPage("/com/group23/event-view.fxml");
   }
-
-  @FXML
   public void loadBookingScreen() {
     loadPage("/com/group23/booking-view.fxml");
   }
-
-  @FXML
   public void loadWaitlistScreen() {
     loadPage("/com/group23/waitlist-view.fxml");
+  }
+
+  public void loadCreateUserScreen() {
+    loadPage("/com/group23/create-user-view.fxml");
   }
 
   private void loadPage(String fxmlFile) {
@@ -38,7 +57,6 @@ public class MainViewController {
       contentArea.getChildren().setAll(page);
     } catch (IOException e) {
       e.printStackTrace();
-      System.out.println("Error loading: " + fxmlFile);
     }
   }
 }
