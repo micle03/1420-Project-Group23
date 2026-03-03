@@ -1,6 +1,6 @@
 package com.group23.Events;
 
-public class Event {
+public abstract class Event {
 
     //private variables for the class
     private String eventID, title, dateTime, location;
@@ -8,6 +8,9 @@ public class Event {
     private String status;
 
     public Event(String eventID, String title, String dateTime, String location, int capacity, String status) {
+
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("The capacity must be greater than 0.");
         //default for parent class
         this.eventID = eventID;
         this.title = title;
@@ -36,4 +39,36 @@ public class Event {
     public String getStatus() {
         return status;
     }
+    //setters
+    public void setTitle(String title) { this.title = title; }
+    public void setDateTime(LocalDateTime dateTime) { this.dateTime = dateTime; }
+    public void setLocation(String location) { this.location = location; }
+
+    
+    public void setCapacity(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("Capacity must be greater than 0.");
+        }
+        this.capacity = capacity;
+    }
+
+    public void cancelEvent() {
+        this.status = EventStatus.CANCELLED;
+    }
+
+
+    public abstract EventType getEventType();
+    public abstract String getTypeSpecificDetails();
+
+    public String toString() {
+        return "ID: " + eventId +
+                " | Title: " + title +
+                " | Date: " + dateTime +
+                " | Location: " + location +
+                " | Capacity: " + capacity +
+                " | Status: " + status +
+                " | Type: " + getEventType() +
+                " | " + getTypeSpecificDetails();
+    }
 }
+    
