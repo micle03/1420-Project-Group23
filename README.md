@@ -3,4 +3,5 @@ Here you will find the code for the waitlist implimentation of the project. It d
 - Creates a waitlist
 - Adds to the wailist
 - Promotes users
-- Deletes the waitlist when the event is cancelled
+- Removes users if they cancel their registration
+- Wipes the waitlist to zero when the event is cancelled
