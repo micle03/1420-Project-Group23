@@ -1,5 +1,7 @@
 package com.group23.Events;
 
+import com.group23.Bookings.BookingService;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,12 +11,14 @@ public class EventManager {
     public static EventManager getInstance() {
         return instance;
     }
+    BookingService bookingService = BookingService.getInstance();
 
     // create event
     public void addEvent(Event event) {
         if (events.containsKey(event.getEventID())) {
             throw new IllegalArgumentException("Duplicate event ID.");
         }
+        bookingService.registerEvent(event.getEventID(), event.getCapacity(), event.getStatus());
         events.put(event.getEventID(), event);
     }
 

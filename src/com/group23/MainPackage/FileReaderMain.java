@@ -17,7 +17,7 @@ public class FileReaderMain {
     public static List<Event> systemEvents = new ArrayList<>();
     //public static List<Booking> systemBookings = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void readFiles() {
 
         //calls users reader class with the file name as a parameter
         FileReaderUsers.readUsers("UsersTest.csv");

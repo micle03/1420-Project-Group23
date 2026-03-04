@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.group23.Bookings.BookingService;
 import com.group23.Users.model.User;
 import com.group23.Users.model.Student;
 import com.group23.Users.model.Staff;
@@ -18,6 +19,7 @@ public class UserManager {
     public static UserManager getInstance() {
         return instance;
     }
+    BookingService bookingService = BookingService.getInstance();
 
     //Creates subclass based on user type
     public User createUser(String userId, String name, String email, String userType) {
@@ -43,6 +45,7 @@ public class UserManager {
         }
         //Stores inside HashMap
         usersById.put(userId, user);
+        bookingService.registerUser(userId, userType);
         return user;
     }
 

@@ -20,30 +20,6 @@ enum UserType {
 
 //booking model PRIVATE
 
-class Booking {
-    private final String bookingId;
-    private final String userId;
-    private final String eventId;
-    private final LocalDateTime createdAt;
-    private BookingStatus status;
-
-    public Booking(String bookingId, String userId, String eventId,
-                   LocalDateTime createdAt, BookingStatus status) {
-        this.bookingId = bookingId;
-        this.userId = userId;
-        this.eventId = eventId;
-        this.createdAt = createdAt;
-        this.status = status;
-    }
-
-    public String getBookingId() { return bookingId; }
-    public String getUserId() { return userId; }
-    public String getEventId() { return eventId; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public BookingStatus getStatus() { return status; }
-    public void setStatus(BookingStatus status) { this.status = status; }
-}
-
 // Booking Class
 public class BookingService {
     private static final BookingService instance = new BookingService();
@@ -60,11 +36,21 @@ public class BookingService {
 
 
     // Setup helpers
-    public void registerUser(String userId, UserType type) {
-        userTypes.put(userId, type);
+    public void registerUser(String userId, String type) {
+        UserType userType = null;
+        if(type.equals("Staff")) {
+            userType = UserType.STAFF;
+        } else if (type.equals("Guest")) {
+            userType = UserType.GUEST;
+        } else if (type.equals("Student")) {
+            userType = UserType.STUDENT;
+        }
+        userTypes.put(userId, userType);
     }
 
-    public void registerEvent(String eventId, int capacity, boolean active) {
+    public void registerEvent(String eventId, int capacity, String status) {
+        boolean active = false;
+        if(status.equals("Active")) active = true;
         eventCapacity.put(eventId, capacity);
         eventActive.put(eventId, active);
     }
