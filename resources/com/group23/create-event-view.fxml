@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.CreateEventViewController">
+    <children>
+        <Label text="Create Event">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+            <VBox.margin>
+                <Insets left="10.0" top="5.0" />
+            </VBox.margin>
+        </Label>
+        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0">
+            <children>
+                <Label text="Event ID:">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="15.0" right="5.0" />
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="idField" prefHeight="26.0" prefWidth="235.0" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="85.0" prefHeight="40.0" prefWidth="600.0">
+            <children>
+                <Label text="Title:">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="15.0" right="5.0" />
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="titleField" prefHeight="26.0" prefWidth="247.0" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0">
+            <children>
+                <Label text="Date/Time:">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="15.0" right="5.0" />
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="dateField" prefHeight="26.0" prefWidth="243.0" />
+            </children>
+        </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0">
+         <children>
+            <Label text="Location:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" right="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="locationField" prefHeight="26.0" prefWidth="247.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="165.0" prefHeight="40.0" prefWidth="600.0">
+         <children>
+            <Label text="Capacity:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" right="5.0" />
+               </HBox.margin>
+            </Label>
+            <Spinner fx:id="capacitySpinner" />
+         </children>
+      </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="125.0" prefHeight="40.0" prefWidth="600.0">
+            <children>
+                <Label text="Event Type:">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="15.0" right="5.0" />
+                    </HBox.margin>
+                </Label>
+                <ChoiceBox fx:id="typeBox" prefHeight="26.0" prefWidth="216.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Concert" />
+                            <String fx:value="Seminar" />
+                            <String fx:value="Workshop" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+            </children>
+        </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="205.0" prefHeight="40.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="specificLabel" text="Specific:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" right="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="specificField" prefHeight="26.0" prefWidth="247.0" />
+         </children>
+      </HBox>
+        <Button mnemonicParsing="false" onAction="#addEvent" text="Add Event">
+            <VBox.margin>
+                <Insets left="15.0" top="10.0" />
+            </VBox.margin>
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+    </children>
+</VBox>

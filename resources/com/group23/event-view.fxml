@@ -17,7 +17,7 @@
       </Label>
       <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" text="Create Event">
+            <Button mnemonicParsing="false" onAction="#viewCreateEventForm" text="Create Event">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
@@ -29,10 +29,15 @@
             <ChoiceBox prefWidth="150.0" />
          </children>
       </HBox>
-      <TableView prefHeight="275.0" prefWidth="600.0">
+      <TableView fx:id="eventTable" prefHeight="275.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="idColumn" prefWidth="118.19999998807907" text="Event ID" />
+          <TableColumn fx:id="titleColumn" prefWidth="91.80000305175781" text="Title" />
+          <TableColumn fx:id="dateColumn" prefWidth="57.79998779296875" text="Date" />
+          <TableColumn fx:id="locationColumn" prefWidth="109.4000244140625" text="Location" />
+          <TableColumn fx:id="capacityColumn" prefWidth="62.5999755859375" text="Capacity" />
+           <TableColumn fx:id="typeColumn" prefWidth="62.5999755859375" text="Capacity" />
+          <TableColumn fx:id="statusColumn" prefWidth="66.00003051757812" text="Status" />
         </columns>
       </TableView>
       <HBox alignment="CENTER" prefHeight="32.0" prefWidth="600.0">

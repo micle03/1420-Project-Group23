@@ -10,6 +10,7 @@ public class Concert extends Event {
 
         if (ageRestriction == null || ageRestriction.isBlank()) {
             throw new IllegalArgumentException("Age restriction is required.");
+        }
 
         //concert specific variable
         this.ageRestriction = ageRestriction;

@@ -60,6 +60,10 @@ public class MainViewController {
     }
   }
 
+  public void loadCreateEventScreen() {
+    loadPage("/com/group23/create-event-view.fxml");
+  }
+
   private void loadPage(String fxmlFile) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
