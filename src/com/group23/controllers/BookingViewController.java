@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -90,7 +91,7 @@ public class BookingViewController implements Initializable {
     });
   }
 
-  @FXML private void bookEvent() {
+  @FXML private void bookEvent() throws IOException {
     BookingService bookingService = BookingService.getInstance();
     bookingService.bookEvent(bookUser.getValue().getUserId(), bookEvent.getValue().getEventID());
     System.out.println("Booked Event: "+bookUser.getValue().getName()+" | "+bookEvent.getValue().getTitle());

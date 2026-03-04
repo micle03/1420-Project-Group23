@@ -50,4 +50,8 @@ public abstract class User {
     public int hashCode() {
         return Objects.hash(userId);
     }
+
+    public String toCsvFormat() {
+        return userId+", "+name+", "+email+", "+getUserType();
+    }
 }

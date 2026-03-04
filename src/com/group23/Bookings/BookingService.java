@@ -1,5 +1,9 @@
 package com.group23.Bookings;
 
+import com.group23.Users.service.UserManager;
+import com.group23.Waitlist.waitlistManager;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,6 +24,7 @@ public class BookingService {
     public static BookingService getInstance() {
         return instance;
     }
+    waitlistManager WaitlistManager = waitlistManager.instance;
 
     // Internal storage
     private final Map<String, Booking> bookingsById = new HashMap<>();
@@ -50,7 +55,7 @@ public class BookingService {
     }
 
     // Book Event
-    public Booking bookEvent(String userId, String eventId) {
+    public Booking bookEvent(String userId, String eventId) throws IOException {
 
         if (!userTypes.containsKey(userId))
             throw new IllegalArgumentException("User not found");
@@ -71,8 +76,9 @@ public class BookingService {
                 .count();
 
         int maxAllowed = getMaxAllowed(userTypes.get(userId));
-        if (confirmedCount >= maxAllowed)
-            throw new IllegalStateException("User reached confirmed booking limit");
+        if (confirmedCount >= maxAllowed) {
+            WaitlistManager.addToWaitlist(eventId, UserManager.getInstance().getUserById(userId));
+        }
 
         // Capacity check
         int confirmedForEvent = getConfirmedBookings(eventId).size();

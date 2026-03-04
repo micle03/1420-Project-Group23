@@ -1,11 +1,20 @@
 package com.group23.Waitlist;
 
+import com.group23.Users.model.Guest;
+import com.group23.Users.model.Staff;
+import com.group23.Users.model.Student;
+import com.group23.Users.model.User;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
 public class waitlistManager {
-    private final String directory = "src/com/group23/Waitlist/src/";
+    private final String directory = "src/com/group23/Waitlist/";
+    public static final waitlistManager instance = new waitlistManager();
+    public static waitlistManager getInstance() {
+        return instance;
+    }
 
     public void createWaitlist(String eventId) {
         File file = new File(directory + eventId + "_Waitlist.txt");
@@ -18,9 +27,14 @@ public class waitlistManager {
         }
     }
 
-    public void addToWaitlist(String eventId, String userData) throws IOException {
+    public void addToWaitlist(String eventId, User user) throws IOException {
         Path path = Paths.get(directory + eventId + "_Waitlist.txt");
-        String id = userData.split(",")[0].trim();// Splits the user data from each instance of a "," and extracts the first users id
+        String id = user.getUserId();
+        String userData = user.toCsvFormat();
+
+        if (!Files.exists(path)) {
+            createWaitlist(eventId);
+        }
 
         List<String> lines = Files.readAllLines(path);
 
@@ -65,5 +79,33 @@ public class waitlistManager {
     public void clearWaitlist(String eventId) throws IOException {
         Path path = Paths.get(directory + eventId + "_Waitlist.txt");
         Files.write(path, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);// Creates new file with zero bytes or makes the existing file zero bytes
+    }
+
+    public List<User> getWaitlistedUsers(String eventId) throws IOException {
+        Path path = Paths.get(directory + eventId + "_Waitlist.txt");
+
+        if (!Files.exists(path)) {
+            return new ArrayList<>(); // Return empty list if file doesn't exist
+        }
+
+        List<User> users = new ArrayList<>();
+        List<String> lines = Files.readAllLines(path);
+
+        for (String line : lines) {
+            String[] parts = line.split(",");
+            if (parts.length >= 4) {
+                if(parts[3].equals("Staff")) {
+                    Staff staff = new Staff(parts[0], parts[1], parts[2]);
+                    users.add(staff);
+                } else if(parts[3].equals("Student")) {
+                    Student student = new Student(parts[0], parts[1], parts[2]);
+                    users.add(student);
+                } else if(parts[3].equals("Guest")) {
+                    Guest guest = new Guest(parts[0], parts[1], parts[2]);
+                    users.add(guest);
+                }
+            }
+        }
+        return users;
     }
 }

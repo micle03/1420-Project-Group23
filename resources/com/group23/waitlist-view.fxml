@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.WaitlistViewManagement">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.WaitlistViewController">
    <children>
       <Label text="Waitlist Management">
          <font>
@@ -17,22 +17,24 @@
       </Label>
       <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0">
          <children>
-            <ChoiceBox prefWidth="150.0">
+            <ChoiceBox fx:id="eventBox" prefWidth="150.0">
                <HBox.margin>
                   <Insets left="15.0" />
                </HBox.margin>
             </ChoiceBox>
          </children>
       </HBox>
-      <TableView prefHeight="308.0" prefWidth="600.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
+      <TableView fx:id="userTable" prefHeight="308.0" prefWidth="600.0">
+         <columns>
+            <TableColumn fx:id="idColumn" minWidth="10.9999998807907104" prefWidth="78.19998013973236" text="ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="199.4000015258789" text="Name" />
+            <TableColumn fx:id="emailColumn" minWidth="100.0" prefWidth="210.5999755859375" text="Email" />
+            <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="101.19992065429688" text="Type" />
+         </columns>
       </TableView>
       <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" text="Remove Booking" />
+            <Button mnemonicParsing="false" onAction="#removeBooking" text="Remove Booking" />
          </children>
       </HBox>
    </children>
