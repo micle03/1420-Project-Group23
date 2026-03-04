@@ -1,7 +1,7 @@
 package com.group23.Events;
 
-import model.Event;
-import model.EventType;
+import Event;
+import EventType;
 
 import java.time.LocalDateTime;
 import java.util.*;
