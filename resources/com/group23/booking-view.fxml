@@ -24,17 +24,17 @@
       </Label>
       <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="600.0">
          <children>
-            <ChoiceBox prefWidth="150.0">
+            <ChoiceBox fx:id="bookUser" prefHeight="26.0" prefWidth="197.0">
                <HBox.margin>
                   <Insets left="15.0" />
                </HBox.margin>
             </ChoiceBox>
-            <ChoiceBox prefWidth="150.0">
+            <ChoiceBox fx:id="bookEvent" prefHeight="26.0" prefWidth="198.0">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </ChoiceBox>
-            <Button mnemonicParsing="false" text="Select" />
+            <Button mnemonicParsing="false" onAction="#bookEvent" text="Book Event" />
          </children>
       </HBox>
       <Label text="Cancel a Booking">
@@ -47,17 +47,17 @@
       </Label>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ChoiceBox prefWidth="150.0">
+            <ChoiceBox fx:id="cancelUser" prefHeight="26.0" prefWidth="199.0">
                <HBox.margin>
                   <Insets left="15.0" />
                </HBox.margin>
             </ChoiceBox>
-            <ChoiceBox prefWidth="150.0">
+            <ChoiceBox fx:id="cancelEvent" prefHeight="26.0" prefWidth="198.0">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </ChoiceBox>
-            <Button mnemonicParsing="false" text="Select" />
+            <Button mnemonicParsing="false" onAction="#cancelBooking" text="Cancel Booking" />
          </children>
       </HBox>
    </children>

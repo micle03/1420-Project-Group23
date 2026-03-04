@@ -8,14 +8,14 @@ import com.group23.FileReaders.FileReaderBookings;
 import com.group23.FileReaders.FileReaderEvents;
 import com.group23.FileReaders.FileReaderUsers;
 import com.group23.Users.model.User;
-import com.group23.Bookings.Booking;
+//import com.group23.Bookings.Booking;
 
 public class FileReaderMain {
 
     //global list of all the users, events, amd bookings in the system
     public static List<User> systemUsers = new ArrayList<>();
     public static List<Event> systemEvents = new ArrayList<>();
-    public static List<Booking> systemBookings = new ArrayList<>();
+    //public static List<Booking> systemBookings = new ArrayList<>();
 
     public static void main(String[] args) {
 
