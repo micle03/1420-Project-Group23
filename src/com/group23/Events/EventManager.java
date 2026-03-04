@@ -1,8 +1,5 @@
 package com.group23.Events;
 
-import Event;
-import EventType;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
