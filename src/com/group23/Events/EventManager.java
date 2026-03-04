@@ -20,7 +20,7 @@ public class EventManager {
 
     // update event
     public void updateEvent(String eventId, String title,
-                            String location, int capacity, String dateTime) {
+                            String location, int capacity, String dateTime, String specific) {
 
         Event event = getEvent(eventId);
 
@@ -28,6 +28,7 @@ public class EventManager {
         event.setLocation(location);
         event.setCapacity(capacity);
         event.setDateTime(dateTime);
+        event.setSpecific(specific);
     }
 
     // cancel event

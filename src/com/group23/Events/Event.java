@@ -60,6 +60,7 @@ public abstract class Event {
 
     public abstract EventType getEventType();
     public abstract String getTypeSpecificDetails();
+    public abstract void setSpecific(String specific);
 
      @Override
     public String toString() {

@@ -21,7 +21,6 @@ public class EventViewController implements Initializable {
   @FXML private TableColumn<Event, String> dateColumn;
   @FXML private TableColumn<Event, String> locationColumn;
   @FXML private TableColumn<Event, String> capacityColumn;
-  @FXML private TableColumn<Event, String> typeColumn;
   @FXML private TableColumn<Event, String> statusColumn;
 
   EventManager eventManager = EventManager.getInstance();
@@ -39,6 +38,21 @@ public class EventViewController implements Initializable {
   @FXML
   private void viewCreateEventForm() {
     MainViewController.getInstance().loadCreateEventScreen();
+  }
+
+  @FXML
+  private void viewUpdateEventForm() {
+    Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
+    if (selectedEvent == null) return;
+    MainViewController.getInstance().loadUpdateEventScreen(selectedEvent);
+  }
+
+  @FXML
+  private void cancelEvent() {
+    Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
+    if (selectedEvent == null) return;
+    eventManager.cancelEvent(selectedEvent.getEventID());
+    reloadTable();
   }
 
   public void reloadTable() {

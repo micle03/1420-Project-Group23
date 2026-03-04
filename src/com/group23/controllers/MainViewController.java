@@ -1,5 +1,6 @@
 package com.group23.controllers;
 
+import com.group23.Events.Event;
 import com.group23.Users.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,6 +73,19 @@ public class MainViewController {
 
   public void loadCreateEventScreen() {
     loadPage("/com/group23/create-event-view.fxml");
+  }
+  public void loadUpdateEventScreen(Event event) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/update-event-view.fxml"));
+      Parent page = loader.load();
+
+      UpdateEventViewController controller = loader.getController();
+      controller.setEvent(event);
+
+      contentArea.getChildren().setAll(page);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void loadPage(String fxmlFile) {

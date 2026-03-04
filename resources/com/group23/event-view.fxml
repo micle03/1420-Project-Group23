@@ -31,23 +31,22 @@
       </HBox>
       <TableView fx:id="eventTable" prefHeight="275.0" prefWidth="600.0">
         <columns>
-          <TableColumn fx:id="idColumn" prefWidth="118.19999998807907" text="Event ID" />
-          <TableColumn fx:id="titleColumn" prefWidth="91.80000305175781" text="Title" />
-          <TableColumn fx:id="dateColumn" prefWidth="57.79998779296875" text="Date" />
-          <TableColumn fx:id="locationColumn" prefWidth="109.4000244140625" text="Location" />
-          <TableColumn fx:id="capacityColumn" prefWidth="62.5999755859375" text="Capacity" />
-          <TableColumn fx:id="statusColumn" prefWidth="66.00003051757812" text="Status" />
+          <TableColumn fx:id="idColumn" prefWidth="79.39999693632126" text="Event ID" />
+          <TableColumn fx:id="titleColumn" prefWidth="158.20001220703125" text="Title" />
+          <TableColumn fx:id="dateColumn" prefWidth="100.19999694824219" text="Date" />
+          <TableColumn fx:id="locationColumn" prefWidth="132.20001220703125" text="Location" />
+          <TableColumn fx:id="capacityColumn" prefWidth="54.0" text="Capacity" />
+          <TableColumn fx:id="statusColumn" prefWidth="72.79998779296875" text="Status" />
         </columns>
       </TableView>
       <HBox alignment="CENTER" prefHeight="32.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" text="Update Event" />
-            <Button mnemonicParsing="false" text="Cancel Event">
+            <Button mnemonicParsing="false" onAction="#viewUpdateEventForm" text="Update Event" />
+            <Button mnemonicParsing="false" onAction="#cancelEvent" text="Cancel Event">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="View Event Roster" />
          </children>
       </HBox>
    </children>

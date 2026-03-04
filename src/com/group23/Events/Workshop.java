@@ -1,7 +1,5 @@
 package com.group23.Events;
 
-import java.time.LocalDateTime;
-
 public class Workshop extends Event {
     //private variable for topic
     private String topic;
@@ -23,6 +21,9 @@ public class Workshop extends Event {
         return topic;
     }
     public void setTopic(String topic) { this.topic = topic; }
+    public void setSpecific(String specific) {
+        setTopic(specific);
+    }
 
 
     @Override

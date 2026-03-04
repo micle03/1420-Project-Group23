@@ -1,14 +1,12 @@
 package com.group23.FileReaders;
 
-import com.group23.Events.Concert;
-import com.group23.Events.Event;
-import com.group23.Events.Seminar;
-import com.group23.Events.Workshop;
+import com.group23.Events.*;
 import com.group23.MainPackage.FileReaderMain;
 
 import java.io.*;
 
 public class FileReaderEvents {
+    private static EventManager eventManager = EventManager.getInstance();
 
     public static void readEvents(String fileName) {
         BufferedReader reader = null;
@@ -53,6 +51,7 @@ public class FileReaderEvents {
 
                 //creates new event
                 FileReaderMain.systemEvents.add(newEvent);
+                if(newEvent != null) eventManager.addEvent(newEvent);
             }
 
             //closes reader
