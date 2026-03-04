@@ -1,3 +1,5 @@
+package com.group23.Bookings;
+
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
