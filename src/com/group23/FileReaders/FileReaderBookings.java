@@ -1,7 +1,6 @@
 package com.group23.FileReaders;
 
-import com.group23.MainPackage.FileReaderMain;
-import com.group23.Bookings.Booking;
+import com.group23.Bookings.BookingService;
 
 import java.io.*;
 
@@ -31,10 +30,12 @@ public class FileReaderBookings {
                 String bookingStatus = bookings[4].trim();
 
                 //creates a new booking
-                Booking newBooking = new Booking(bookingID, userID, eventID, createdAt, bookingStatus);
+                BookingService bookingService = BookingService.getInstance();
+                bookingService.bookEvent(userID, eventID);
+
 
                 //adds the new booking to the global bookings list
-                FileReaderMain.systemBookings.add(newBooking);
+                //FileReaderMain.systemBookings.add(newBooking);
             }
 
             //closes reader

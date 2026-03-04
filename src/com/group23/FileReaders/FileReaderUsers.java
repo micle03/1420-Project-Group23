@@ -9,7 +9,7 @@ import com.group23.Users.model.User;
 public class FileReaderUsers {
 
     public static void readUsers(String fileName) {
-        UserManager userManager = new UserManager();
+        UserManager userManager = UserManager.getInstance();
         BufferedReader reader = null;
         String line = "";
 

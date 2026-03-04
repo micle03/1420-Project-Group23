@@ -46,6 +46,10 @@ class Booking {
 
 // Booking Class
 public class BookingService {
+    private static final BookingService instance = new BookingService();
+    public static BookingService getInstance() {
+        return instance;
+    }
 
     // Internal storage
     private final Map<String, Booking> bookingsById = new HashMap<>();
