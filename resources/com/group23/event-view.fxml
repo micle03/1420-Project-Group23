@@ -36,7 +36,6 @@
           <TableColumn fx:id="dateColumn" prefWidth="57.79998779296875" text="Date" />
           <TableColumn fx:id="locationColumn" prefWidth="109.4000244140625" text="Location" />
           <TableColumn fx:id="capacityColumn" prefWidth="62.5999755859375" text="Capacity" />
-           <TableColumn fx:id="typeColumn" prefWidth="62.5999755859375" text="Capacity" />
           <TableColumn fx:id="statusColumn" prefWidth="66.00003051757812" text="Status" />
         </columns>
       </TableView>

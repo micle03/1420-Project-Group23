@@ -1,6 +1,10 @@
 package com.group23.controllers;
 
 import com.group23.Events.Event;
+import com.group23.Events.EventManager;
+import com.group23.Users.model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -20,6 +24,8 @@ public class EventViewController implements Initializable {
   @FXML private TableColumn<Event, String> typeColumn;
   @FXML private TableColumn<Event, String> statusColumn;
 
+  EventManager eventManager = EventManager.getInstance();
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     idColumn.setCellValueFactory(new PropertyValueFactory<>("eventID"));
@@ -27,12 +33,17 @@ public class EventViewController implements Initializable {
     dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     capacityColumn.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
   }
 
   @FXML
   private void viewCreateEventForm() {
     MainViewController.getInstance().loadCreateEventScreen();
+  }
+
+  public void reloadTable() {
+    ObservableList<Event> observableEvents =
+      FXCollections.observableArrayList(eventManager.listAllEvents());
+    eventTable.setItems(observableEvents);
   }
 }

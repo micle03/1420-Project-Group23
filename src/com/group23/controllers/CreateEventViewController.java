@@ -1,6 +1,7 @@
 package com.group23.controllers;
 
 import com.group23.Events.Concert;
+import com.group23.Events.EventManager;
 import com.group23.Events.Seminar;
 import com.group23.Events.Workshop;
 import javafx.fxml.FXML;
@@ -29,13 +30,17 @@ public class CreateEventViewController implements Initializable {
     int capacity = capacitySpinner.getValue();
     String type = typeBox.getValue();
     String specific = specificField.getText();
+    EventManager eventManager = EventManager.getInstance();
 
     if(type.equals("Concert")) {
       Concert concert = new Concert(eventId, title, date, location, capacity, "Active",  specific);
+      eventManager.addEvent(concert);
     } else if (type.equals("Seminar")) {
       Seminar seminar = new Seminar(eventId, title, date, location, capacity, "Active",  specific);
+      eventManager.addEvent(seminar);
     } else if (type.equals("Workshop")) {
       Workshop workshop = new Workshop(eventId, title, date, location, capacity, "Active", specific);
+      eventManager.addEvent(workshop);
     }
 
     idField.clear();

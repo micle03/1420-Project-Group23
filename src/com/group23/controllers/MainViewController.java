@@ -34,7 +34,17 @@ public class MainViewController {
     }
   }
   public void loadEventScreen() {
-    loadPage("/com/group23/event-view.fxml");
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/event-view.fxml"));
+      Parent page = loader.load();
+
+      EventViewController controller = loader.getController();
+      controller.reloadTable();
+
+      contentArea.getChildren().setAll(page);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
   public void loadBookingScreen() {
     loadPage("/com/group23/booking-view.fxml");
