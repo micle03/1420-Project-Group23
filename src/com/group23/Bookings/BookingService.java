@@ -6,12 +6,6 @@ import java.util.stream.Collectors;
 
 //ENUMS PRIVATE
 
-enum BookingStatus {
-    CONFIRMED,
-    WAITLISTED,
-    CANCELLED
-}
-
 enum UserType {
     STUDENT,
     STAFF,

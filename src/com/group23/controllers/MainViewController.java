@@ -1,5 +1,6 @@
 package com.group23.controllers;
 
+import com.group23.Bookings.Booking;
 import com.group23.Events.Event;
 import com.group23.Users.model.User;
 import javafx.fxml.FXML;
@@ -81,6 +82,20 @@ public class MainViewController {
 
       UpdateEventViewController controller = loader.getController();
       controller.setEvent(event);
+
+      contentArea.getChildren().setAll(page);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void loadViewUserBookingsScreen(User user) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/user-bookings-view.fxml"));
+      Parent page = loader.load();
+
+      ViewUserBookingsController controller = loader.getController();
+      controller.setUser(user);
 
       contentArea.getChildren().setAll(page);
     } catch (IOException e) {

@@ -20,6 +20,8 @@ public class BookingViewController implements Initializable {
   @FXML private ChoiceBox<Event> bookEvent;
   @FXML private ChoiceBox<User> cancelUser;
   @FXML private ChoiceBox<Booking> cancelEvent;
+  @FXML private ChoiceBox<User> userBookings;
+  @FXML private ChoiceBox<Event> eventBookings;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,10 +71,14 @@ public class BookingViewController implements Initializable {
       }
     };
     cancelEvent.setConverter(bookNameConverter);
+    userBookings.setConverter(userNameConverter);
+    eventBookings.setConverter(eventNameConverter);
 
     bookUser.getItems().setAll(users);
     cancelUser.getItems().setAll(users);
     bookEvent.getItems().setAll(events);
+    userBookings.getItems().setAll(users);
+    eventBookings.getItems().setAll(events);
 
     cancelUser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
       if(newValue == null) {
@@ -84,17 +90,23 @@ public class BookingViewController implements Initializable {
     });
   }
 
-  @FXML
-  private void bookEvent() {
+  @FXML private void bookEvent() {
     BookingService bookingService = BookingService.getInstance();
     bookingService.bookEvent(bookUser.getValue().getUserId(), bookEvent.getValue().getEventID());
     System.out.println("Booked Event: "+bookUser.getValue().getName()+" | "+bookEvent.getValue().getTitle());
   }
 
-  @FXML
-  private void cancelBooking() {
+  @FXML private void cancelBooking() {
     BookingService bookingService = BookingService.getInstance();
     bookingService.cancelBooking(cancelEvent.getValue().getBookingId());
     System.out.println("Cancelled Event: "+cancelUser.getValue().getName()+" | "+cancelEvent.getValue().getEventId());
+  }
+
+  @FXML private void viewUserBookings() {
+    MainViewController.getInstance().loadViewUserBookingsScreen(userBookings.getValue());
+  }
+
+  @FXML private void viewEventBookings() {
+
   }
 }
