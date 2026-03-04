@@ -4,8 +4,6 @@ import com.group23.Bookings.Booking;
 import com.group23.Bookings.BookingService;
 import com.group23.Bookings.BookingStatus;
 import com.group23.Events.EventManager;
-import com.group23.Events.EventStatus;
-import com.group23.Events.EventType;
 import com.group23.Users.model.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -15,13 +13,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ViewUserBookingsController implements Initializable {
+public class UserBookingsViewController implements Initializable {
   private User user;
   @FXML private Label userBookingsLabel;
   @FXML private TableView<Booking> bookingTable;

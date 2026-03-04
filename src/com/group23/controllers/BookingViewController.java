@@ -107,6 +107,6 @@ public class BookingViewController implements Initializable {
   }
 
   @FXML private void viewEventBookings() {
-
+    MainViewController.getInstance().loadEventRosterScreen(eventBookings.getValue());
   }
 }

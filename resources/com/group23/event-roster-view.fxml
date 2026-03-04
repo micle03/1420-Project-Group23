@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.EventRosterViewController">
+    <children>
+        <Label fx:id="eventRosterLabel" text="Event Roster">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+            <VBox.margin>
+                <Insets left="10.0" top="5.0" />
+            </VBox.margin>
+        </Label>
+        <TabPane prefHeight="344.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Confirmed">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="305.0" prefWidth="600.0">
+                            <children>
+                                <TableView fx:id="confirmedTable" layoutY="-1.0" prefHeight="313.0" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="idColumn" minWidth="10.9999998807907104" prefWidth="78.19998013973236" text="ID" />
+                                        <TableColumn fx:id="nameColumn" prefWidth="199.4000015258789" text="Name" />
+                                        <TableColumn fx:id="emailColumn" minWidth="100.0" prefWidth="210.5999755859375" text="Email" />
+                                        <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="101.19992065429688" text="Type" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Waitlisted">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="waitlistedTable" prefHeight="310.0" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="idWaitColumn" minWidth="10.9999998807907104" prefWidth="78.19998013973236" text="ID" />
+                                        <TableColumn fx:id="nameWaitColumn" prefWidth="199.4000015258789" text="Name" />
+                                        <TableColumn fx:id="emailWaitColumn" minWidth="100.0" prefWidth="210.5999755859375" text="Email" />
+                                        <TableColumn fx:id="typeWaitColumn" minWidth="0.0" prefWidth="101.19992065429688" text="Type" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>

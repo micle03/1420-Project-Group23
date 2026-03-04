@@ -1,6 +1,5 @@
 package com.group23.controllers;
 
-import com.group23.Bookings.Booking;
 import com.group23.Events.Event;
 import com.group23.Users.model.User;
 import javafx.fxml.FXML;
@@ -17,6 +16,7 @@ public class MainViewController {
   @FXML
   public void initialize() {
     instance = this;
+    loadUserScreen();
   }
 
   public static MainViewController getInstance() {
@@ -94,8 +94,21 @@ public class MainViewController {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/user-bookings-view.fxml"));
       Parent page = loader.load();
 
-      ViewUserBookingsController controller = loader.getController();
+      UserBookingsViewController controller = loader.getController();
       controller.setUser(user);
+
+      contentArea.getChildren().setAll(page);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  public void loadEventRosterScreen(Event event) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/event-roster-view.fxml"));
+      Parent page = loader.load();
+
+      EventRosterViewController controller = loader.getController();
+      controller.setEvent(event);
 
       contentArea.getChildren().setAll(page);
     } catch (IOException e) {
