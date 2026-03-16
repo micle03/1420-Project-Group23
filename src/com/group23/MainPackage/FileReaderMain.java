@@ -20,9 +20,9 @@ public class FileReaderMain {
     public static void readFiles() {
 
         //calls users reader class with the file name as a parameter
-        FileReaderUsers.readUsers("UsersTest.csv");
-        FileReaderEvents.readEvents("EventsTest.csv");
-        FileReaderBookings.readBookings("BookingsTest.csv");
+        FileReaderUsers.readUsers("users.csv");
+        FileReaderEvents.readEvents("events.csv");
+        FileReaderBookings.readBookings("bookings.csv");
 
         //shows how the getters work
         //System.out.println(systemUsers.get(1).getUserID());
