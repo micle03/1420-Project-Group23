@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group23.controllers.events.EventViewController">
    <children>
       <Label text="Event Management" textAlignment="CENTER">
@@ -26,7 +28,16 @@
                <HBox.margin>
                   <Insets left="2.0" right="10.0" />
                </HBox.margin></Button>
-            <ChoiceBox prefWidth="150.0" />
+            <ChoiceBox fx:id="eventTypeBox" prefWidth="150.0" >
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Any" />
+                     <String fx:value="Concert" />
+                     <String fx:value="Seminar" />
+                     <String fx:value="Workshop" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
          </children>
       </HBox>
       <TableView fx:id="eventTable" prefHeight="275.0" prefWidth="600.0">

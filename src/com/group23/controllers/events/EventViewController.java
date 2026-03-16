@@ -2,16 +2,19 @@ package com.group23.controllers.events;
 
 import com.group23.Events.Event;
 import com.group23.Events.EventManager;
+import com.group23.Events.EventType;
 import com.group23.controllers.MainViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class EventViewController implements Initializable {
@@ -22,17 +25,33 @@ public class EventViewController implements Initializable {
   @FXML private TableColumn<Event, String> locationColumn;
   @FXML private TableColumn<Event, String> capacityColumn;
   @FXML private TableColumn<Event, String> statusColumn;
+  @FXML private ChoiceBox<String> eventTypeBox;
+  private ObservableList<Event> eventList;
 
   EventManager eventManager = EventManager.getInstance();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    eventList = FXCollections.observableArrayList(eventManager.listAllEvents());
     idColumn.setCellValueFactory(new PropertyValueFactory<>("eventID"));
     titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
     dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     capacityColumn.setCellValueFactory(new PropertyValueFactory<>("capacity"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    eventTypeBox.setValue("Any");
+    eventTypeBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+      if(newValue.equals("Concert")) {
+        eventList = FXCollections.observableArrayList(eventManager.filterByType(EventType.CONCERT));
+      } else if(newValue.equals("Seminar")) {
+        eventList = FXCollections.observableArrayList(eventManager.filterByType(EventType.SEMINAR));
+      } else if(newValue.equals("Workshop")) {
+        eventList = FXCollections.observableArrayList(eventManager.filterByType(EventType.WORKSHOP));
+      } else {
+        eventList = FXCollections.observableArrayList(eventManager.listAllEvents());
+      }
+      reloadTable();
+    });
   }
 
   @FXML
@@ -56,8 +75,6 @@ public class EventViewController implements Initializable {
   }
 
   public void reloadTable() {
-    ObservableList<Event> observableEvents =
-      FXCollections.observableArrayList(eventManager.listAllEvents());
-    eventTable.setItems(observableEvents);
+    eventTable.setItems(eventList);
   }
 }
