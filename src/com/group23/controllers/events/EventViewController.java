@@ -11,10 +11,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class EventViewController implements Initializable {
@@ -26,6 +26,7 @@ public class EventViewController implements Initializable {
   @FXML private TableColumn<Event, String> capacityColumn;
   @FXML private TableColumn<Event, String> statusColumn;
   @FXML private ChoiceBox<String> eventTypeBox;
+  @FXML private TextField searchBox;
   private ObservableList<Event> eventList;
 
   EventManager eventManager = EventManager.getInstance();
@@ -40,6 +41,7 @@ public class EventViewController implements Initializable {
     capacityColumn.setCellValueFactory(new PropertyValueFactory<>("capacity"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     eventTypeBox.setValue("Any");
+    searchBox.setText("");
     eventTypeBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
       if(newValue.equals("Concert")) {
         eventList = FXCollections.observableArrayList(eventManager.filterByType(EventType.CONCERT));
@@ -50,6 +52,10 @@ public class EventViewController implements Initializable {
       } else {
         eventList = FXCollections.observableArrayList(eventManager.listAllEvents());
       }
+      reloadTable();
+    });
+    searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+      eventList = FXCollections.observableArrayList(eventManager.searchByTitle(newValue));
       reloadTable();
     });
   }
