@@ -2,6 +2,12 @@ package com.group23.controllers;
 
 import com.group23.Events.Event;
 import com.group23.Users.model.User;
+import com.group23.controllers.bookings.UserBookingsViewController;
+import com.group23.controllers.events.EventRosterViewController;
+import com.group23.controllers.events.EventViewController;
+import com.group23.controllers.events.UpdateEventViewController;
+import com.group23.controllers.users.UserDetailViewController;
+import com.group23.controllers.users.UserViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +30,7 @@ public class MainViewController {
   }
   public void loadUserScreen() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/user-view.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/users/user-view.fxml"));
       Parent page = loader.load();
 
       UserViewController controller = loader.getController();
@@ -37,7 +43,7 @@ public class MainViewController {
   }
   public void loadEventScreen() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/event-view.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/events/event-view.fxml"));
       Parent page = loader.load();
 
       EventViewController controller = loader.getController();
@@ -49,18 +55,18 @@ public class MainViewController {
     }
   }
   public void loadBookingScreen() {
-    loadPage("/com/group23/booking-view.fxml");
+    loadPage("/com/group23/bookings/booking-view.fxml");
   }
   public void loadWaitlistScreen() {
     loadPage("/com/group23/waitlist-view.fxml");
   }
 
   public void loadCreateUserScreen() {
-    loadPage("/com/group23/create-user-view.fxml");
+    loadPage("/com/group23/users/create-user-view.fxml");
   }
   public void loadUserDetailScreen(User user) {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/user-detail-view.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/users/user-detail-view.fxml"));
       Parent page = loader.load();
 
       UserDetailViewController controller = loader.getController();
@@ -73,11 +79,11 @@ public class MainViewController {
   }
 
   public void loadCreateEventScreen() {
-    loadPage("/com/group23/create-event-view.fxml");
+    loadPage("/com/group23/events/create-event-view.fxml");
   }
   public void loadUpdateEventScreen(Event event) {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/update-event-view.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/events/update-event-view.fxml"));
       Parent page = loader.load();
 
       UpdateEventViewController controller = loader.getController();
@@ -91,7 +97,7 @@ public class MainViewController {
 
   public void loadViewUserBookingsScreen(User user) {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/user-bookings-view.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/bookings/user-bookings-view.fxml"));
       Parent page = loader.load();
 
       UserBookingsViewController controller = loader.getController();
@@ -104,7 +110,7 @@ public class MainViewController {
   }
   public void loadEventRosterScreen(Event event) {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/event-roster-view.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/events/event-roster-view.fxml"));
       Parent page = loader.load();
 
       EventRosterViewController controller = loader.getController();

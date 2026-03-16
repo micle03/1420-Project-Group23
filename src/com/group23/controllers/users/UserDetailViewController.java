@@ -1,6 +1,7 @@
-package com.group23.controllers;
+package com.group23.controllers.users;
 
 import com.group23.Users.model.User;
+import com.group23.controllers.MainViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

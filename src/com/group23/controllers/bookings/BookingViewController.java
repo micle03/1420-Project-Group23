@@ -1,4 +1,4 @@
-package com.group23.controllers;
+package com.group23.controllers.bookings;
 
 import com.group23.Bookings.Booking;
 import com.group23.Bookings.BookingService;
@@ -6,6 +6,7 @@ import com.group23.Events.Event;
 import com.group23.Events.EventManager;
 import com.group23.Users.model.User;
 import com.group23.Users.service.UserManager;
+import com.group23.controllers.MainViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;

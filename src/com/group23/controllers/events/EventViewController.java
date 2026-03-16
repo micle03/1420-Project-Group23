@@ -1,8 +1,8 @@
-package com.group23.controllers;
+package com.group23.controllers.events;
 
 import com.group23.Events.Event;
 import com.group23.Events.EventManager;
-import com.group23.Users.model.User;
+import com.group23.controllers.MainViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

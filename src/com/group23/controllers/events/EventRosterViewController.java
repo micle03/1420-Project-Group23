@@ -1,4 +1,4 @@
-package com.group23.controllers;
+package com.group23.controllers.events;
 
 import com.group23.Bookings.Booking;
 import com.group23.Bookings.BookingService;

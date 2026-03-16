@@ -1,6 +1,7 @@
-package com.group23.controllers;
+package com.group23.controllers.users;
 
 import com.group23.Users.service.UserManager;
+import com.group23.controllers.MainViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
