@@ -2,6 +2,7 @@ package com.group23.controllers;
 
 import com.group23.Users.service.UserManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
@@ -19,7 +20,15 @@ public class CreateUserViewController {
     String type = userTypeBox.getValue();
 
     UserManager userManager = UserManager.getInstance();
-    userManager.createUser(userId, name, email, type);
+    try{
+      userManager.createUser(userId, name, email, type);
+    }catch(IllegalArgumentException e){
+      Alert alert =  new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("User Creation Error");
+      alert.setHeaderText(null);
+      alert.setContentText("A user with this ID already exists!");
+      alert.showAndWait();
+    }
 
     idField.clear();
     nameField.clear();

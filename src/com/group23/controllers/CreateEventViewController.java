@@ -31,16 +31,23 @@ public class CreateEventViewController implements Initializable {
     String type = typeBox.getValue();
     String specific = specificField.getText();
     EventManager eventManager = EventManager.getInstance();
-
-    if(type.equals("Concert")) {
-      Concert concert = new Concert(eventId, title, date, location, capacity, "Active",  specific);
-      eventManager.addEvent(concert);
-    } else if (type.equals("Seminar")) {
-      Seminar seminar = new Seminar(eventId, title, date, location, capacity, "Active",  specific);
-      eventManager.addEvent(seminar);
-    } else if (type.equals("Workshop")) {
-      Workshop workshop = new Workshop(eventId, title, date, location, capacity, "Active", specific);
-      eventManager.addEvent(workshop);
+    try{
+      if(type.equals("Concert")) {
+        Concert concert = new Concert(eventId, title, date, location, capacity, "Active",  specific);
+        eventManager.addEvent(concert);
+      } else if (type.equals("Seminar")) {
+        Seminar seminar = new Seminar(eventId, title, date, location, capacity, "Active",  specific);
+        eventManager.addEvent(seminar);
+      } else if (type.equals("Workshop")) {
+        Workshop workshop = new Workshop(eventId, title, date, location, capacity, "Active", specific);
+        eventManager.addEvent(workshop);
+      }
+    }catch(IllegalArgumentException e){
+      Alert alert =  new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Event Creation Error");
+      alert.setHeaderText(null);
+      alert.setContentText("An event with this ID already exists!");
+      alert.showAndWait();
     }
 
     idField.clear();
