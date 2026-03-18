@@ -77,7 +77,7 @@ public class BookingService {
 
         int maxAllowed = getMaxAllowed(userTypes.get(userId));
         if (confirmedCount >= maxAllowed) {
-            WaitlistManager.addToWaitlist(eventId, UserManager.getInstance().getUserById(userId));
+            throw new IllegalStateException("User can't book more events");
         }
 
         // Capacity check
@@ -87,6 +87,10 @@ public class BookingService {
                 (confirmedForEvent < eventCapacity.get(eventId))
                         ? BookingStatus.CONFIRMED
                         : BookingStatus.WAITLISTED;
+
+        if(status.equals(BookingStatus.WAITLISTED)) {
+            WaitlistManager.addToWaitlist(eventId, UserManager.getInstance().getUserById(userId));
+        }
 
         Booking booking = new Booking(
                 generateBookingId(),
