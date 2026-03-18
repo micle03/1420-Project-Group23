@@ -19,21 +19,23 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class BookingViewController implements Initializable {
-  @FXML private ChoiceBox<User> bookUser;
-  @FXML private ChoiceBox<Event> bookEvent;
-  @FXML private ChoiceBox<User> cancelUser;
-  @FXML private ChoiceBox<Booking> cancelEvent;
-  @FXML private ChoiceBox<User> userBookings;
-  @FXML private ChoiceBox<Event> eventBookings;
+  @FXML private ChoiceBox<User> bookUser; //User choice for booking
+  @FXML private ChoiceBox<Event> bookEvent; //Event choice for booking
+  @FXML private ChoiceBox<User> cancelUser; //User choice for cancellation
+  @FXML private ChoiceBox<Booking> cancelEvent; //Event choice for cancellation
+  @FXML private ChoiceBox<User> userBookings; //Box to choose users to view bookings of
+  @FXML private ChoiceBox<Event> eventBookings; //Box to choose event to view bookings of
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    //get instances and create lists of events and users
     UserManager userManager = UserManager.getInstance();
     EventManager eventManager = EventManager.getInstance();
     BookingService bookingService = BookingService.getInstance();
     List<User> users = userManager.getAllUsers();
     List<Event> events = eventManager.listAllEvents();
 
+    //convert User and Event objects to strings with info
     StringConverter<User> userNameConverter = new StringConverter<>() {
       @Override
       public String toString(User user) {
@@ -77,12 +79,14 @@ public class BookingViewController implements Initializable {
     userBookings.setConverter(userNameConverter);
     eventBookings.setConverter(eventNameConverter);
 
+    //set options for choiceboxes
     bookUser.getItems().setAll(users);
     cancelUser.getItems().setAll(users);
     bookEvent.getItems().setAll(events);
     userBookings.getItems().setAll(users);
     eventBookings.getItems().setAll(events);
 
+    //add listener for cancellation to only show cancellable events for user
     cancelUser.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
       if(newValue == null) {
         cancelEvent.getItems().clear();
@@ -93,6 +97,7 @@ public class BookingViewController implements Initializable {
     });
   }
 
+  //method to call bookEvent from booking service, show alert if error
   @FXML private void bookEvent() {
     BookingService bookingService = BookingService.getInstance();
     try {
@@ -107,16 +112,21 @@ public class BookingViewController implements Initializable {
     System.out.println("Booked Event: "+bookUser.getValue().getName()+" | "+bookEvent.getValue().getTitle());
   }
 
+  //cancel a booking and shows alert showing successful cancellation
   @FXML private void cancelBooking() {
     BookingService bookingService = BookingService.getInstance();
     bookingService.cancelBooking(cancelEvent.getValue().getBookingId());
-    System.out.println("Cancelled Event: "+cancelUser.getValue().getName()+" | "+cancelEvent.getValue().getEventId());
+    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Booking Cancellation");
+    alert.setHeaderText(null);
+    alert.setContentText("Cancelled Event: "+cancelUser.getValue().getName()+" | "+cancelEvent.getValue().getEventId());
+    alert.showAndWait();
   }
 
+ //methods to go to user bookings and event bookings page
   @FXML private void viewUserBookings() {
     MainViewController.getInstance().loadViewUserBookingsScreen(userBookings.getValue());
   }
-
   @FXML private void viewEventBookings() {
     MainViewController.getInstance().loadEventRosterScreen(eventBookings.getValue());
   }

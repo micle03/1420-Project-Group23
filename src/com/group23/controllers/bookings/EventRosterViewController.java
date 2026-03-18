@@ -1,11 +1,10 @@
-package com.group23.controllers.events;
+package com.group23.controllers.bookings;
 
 import com.group23.Bookings.Booking;
 import com.group23.Bookings.BookingService;
 import com.group23.Events.Event;
 import com.group23.Users.model.User;
 import com.group23.Users.service.UserManager;
-import com.group23.Waitlist.waitlistManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +20,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class EventRosterViewController implements Initializable {
+  //get instances of user and booking and get confirmed and waitlisted tables
   private Event event;
   BookingService bookingService = BookingService.getInstance();
   UserManager userManager = UserManager.getInstance();
@@ -36,6 +36,7 @@ public class EventRosterViewController implements Initializable {
   @FXML private TableColumn<User, String> emailWaitColumn;
   @FXML private TableColumn<User, String> typeWaitColumn;
 
+  //sets event to show bookings of
   public void setEvent(Event event) {
     this.event = event;
     eventRosterLabel.setText(event.getTitle()+" Roster");
@@ -44,6 +45,7 @@ public class EventRosterViewController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    //initialize confirmed and waitlisted tables
     idColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -55,6 +57,7 @@ public class EventRosterViewController implements Initializable {
   }
 
   private void reloadTable() {
+    //reload both tables to show users that booked event
     ObservableList<Booking> confirmedBookings = FXCollections.observableArrayList(bookingService.getConfirmedBookings(event.getEventID()));
     ObservableList<User> confirmedUsers = confirmedBookings.stream()
       .map(booking -> userManager.getUserById(booking.getUserId()))

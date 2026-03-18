@@ -20,17 +20,19 @@ import java.util.ResourceBundle;
 
 public class UserBookingsViewController implements Initializable {
   private User user;
-  @FXML private Label userBookingsLabel;
+  @FXML private Label userBookingsLabel; //label to show chosen event
   @FXML private TableView<Booking> bookingTable;
   @FXML private TableColumn<Booking, String> idColumn;
   @FXML private TableColumn<Booking, String> nameColumn;
   @FXML private TableColumn<Booking, String> dateColumn;
   @FXML private TableColumn<Booking, String> statusColumn;
+  //instances for events and bookings
   EventManager eventManager = EventManager.getInstance();
   BookingService bookingService = BookingService.getInstance();
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    //initialize booking table
     idColumn.setCellValueFactory(new PropertyValueFactory<>("bookingId"));
     nameColumn.setCellValueFactory(cellData -> {
       Booking booking = cellData.getValue();
@@ -52,12 +54,14 @@ public class UserBookingsViewController implements Initializable {
     });
   }
 
+  //controller is given user to view bookings of, this sets the user
   public void setUser(User user) {
     this.user = user;
     userBookingsLabel.setText(user.getName()+"'s bookings");
     reloadTable();
   }
 
+  //reload table to show given user info
   private void reloadTable() {
     ObservableList<Booking> bookings = FXCollections.observableArrayList(bookingService.getUserBookings(user.getUserId()));
     bookingTable.setItems(bookings);

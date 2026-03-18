@@ -3,7 +3,7 @@ package com.group23.controllers;
 import com.group23.Events.Event;
 import com.group23.Users.model.User;
 import com.group23.controllers.bookings.UserBookingsViewController;
-import com.group23.controllers.events.EventRosterViewController;
+import com.group23.controllers.bookings.EventRosterViewController;
 import com.group23.controllers.events.EventViewController;
 import com.group23.controllers.events.UpdateEventViewController;
 import com.group23.controllers.users.UserDetailViewController;
