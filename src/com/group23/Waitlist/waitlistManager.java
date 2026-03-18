@@ -108,4 +108,22 @@ public class waitlistManager {
         }
         return users;
     }
+    public Map<String, List<User>> getAllWaitlistedUsers() throws IOException {
+        Map<String, List<User>> allWaitlistedUsers = new HashMap<>();
+        Path dirPath = Paths.get(directory);
+
+        if (!Files.exists(dirPath)) {
+            return allWaitlistedUsers;
+        }
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dirPath, "*_Waitlist.txt")) {
+            for (Path entry : stream) {
+                String fileName = entry.getFileName().toString();
+                String eventId = fileName.replace("_Waitlist.txt", "");
+                allWaitlistedUsers.put(eventId, getWaitlistedUsers(eventId));
+            }
+        }
+
+        return allWaitlistedUsers;
+    }
 }
