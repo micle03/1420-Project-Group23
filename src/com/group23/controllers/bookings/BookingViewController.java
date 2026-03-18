@@ -9,6 +9,7 @@ import com.group23.Users.service.UserManager;
 import com.group23.controllers.MainViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.StringConverter;
 
@@ -92,9 +93,17 @@ public class BookingViewController implements Initializable {
     });
   }
 
-  @FXML private void bookEvent() throws IOException {
+  @FXML private void bookEvent() {
     BookingService bookingService = BookingService.getInstance();
-    bookingService.bookEvent(bookUser.getValue().getUserId(), bookEvent.getValue().getEventID());
+    try {
+      bookingService.bookEvent(bookUser.getValue().getUserId(), bookEvent.getValue().getEventID());
+    } catch (IOException | IllegalArgumentException | IllegalStateException e) {
+      Alert alert =  new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Booking Creation Error");
+      alert.setHeaderText(null);
+      alert.setContentText(e.getMessage());
+      alert.showAndWait();
+    }
     System.out.println("Booked Event: "+bookUser.getValue().getName()+" | "+bookEvent.getValue().getTitle());
   }
 

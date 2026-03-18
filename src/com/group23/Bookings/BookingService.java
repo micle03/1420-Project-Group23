@@ -120,6 +120,11 @@ public class BookingService {
         // Promote waitlist if needed
         if (previous == BookingStatus.CONFIRMED) {
             promoteFirstWaitlisted(booking.getEventId());
+            try {
+                WaitlistManager.promoteUser(booking.getEventId());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         return booking;
