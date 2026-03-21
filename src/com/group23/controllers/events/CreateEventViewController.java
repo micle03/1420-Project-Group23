@@ -58,6 +58,12 @@ public class CreateEventViewController implements Initializable {
     typeBox.setValue(null);
     specificField.clear();
 
+    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Event Created");
+    alert.setHeaderText(null);
+    alert.setContentText("Created Event: "+title+" | "+eventId);
+    alert.showAndWait();
+
     MainViewController.getInstance().loadEventScreen();
   }
 

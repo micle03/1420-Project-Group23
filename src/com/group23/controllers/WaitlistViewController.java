@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -78,6 +79,11 @@ public class WaitlistViewController implements Initializable {
   @FXML private void removeBooking() throws IOException {
     User selectedUser = userTable.getSelectionModel().getSelectedItem();
     if (selectedUser == null) return;
+    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Booking Removed");
+    alert.setHeaderText(null);
+    alert.setContentText("Removed Booking: "+selectedUser.getName()+" | "+event.getTitle());
+    alert.showAndWait();
     WaitlistManager.removeFromWaitlist(event.getEventID(), selectedUser.getUserId());
   }
 }

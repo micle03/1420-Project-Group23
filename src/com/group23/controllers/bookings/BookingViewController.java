@@ -109,7 +109,11 @@ public class BookingViewController implements Initializable {
       alert.setContentText(e.getMessage());
       alert.showAndWait();
     }
-    System.out.println("Booked Event: "+bookUser.getValue().getName()+" | "+bookEvent.getValue().getTitle());
+    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Event Booking Created");
+    alert.setHeaderText(null);
+    alert.setContentText("Booked Event: "+bookUser.getValue().getName()+" | "+bookEvent.getValue().getTitle());
+    alert.showAndWait();
   }
 
   //cancel a booking and shows alert showing successful cancellation

@@ -36,6 +36,12 @@ public class CreateUserViewController {
     emailField.clear();
     userTypeBox.setValue(null);
 
+    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("User Created");
+    alert.setHeaderText(null);
+    alert.setContentText("Created User: "+nameField.getText()+" | "+idField.getText());
+    alert.showAndWait();
+
     MainViewController.getInstance().loadUserScreen();
   }
 }

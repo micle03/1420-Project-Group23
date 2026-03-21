@@ -50,6 +50,11 @@ public class UpdateEventViewController {
 
   @FXML private void updateEvent() {
     eventManager.updateEvent(idField.getText(), titleField.getText(), locationField.getText(), capacitySpinner.getValue(), specificField.getText(), specificLabel.getText());
+    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Event Updated");
+    alert.setHeaderText(null);
+    alert.setContentText("Updated Event: "+titleField.getText()+" | "+idField.getText());
+    alert.showAndWait();
     MainViewController.getInstance().loadEventScreen();
   }
 }

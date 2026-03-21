@@ -8,10 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -77,6 +74,11 @@ public class EventViewController implements Initializable {
     Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
     if (selectedEvent == null) return;
     eventManager.cancelEvent(selectedEvent.getEventID());
+    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Event Cancellation");
+    alert.setHeaderText(null);
+    alert.setContentText("Cancelled Event: "+selectedEvent.getTitle()+" | "+selectedEvent.getEventID());
+    alert.showAndWait();
     reloadTable();
   }
 
