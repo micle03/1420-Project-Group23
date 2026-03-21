@@ -18,11 +18,13 @@ public class UpdateEventViewController {
   @FXML private Label specificLabel;
 
   public void setEvent(Event event) {
+    //set event to update
     this.event = event;
     displayEventInfo();
   }
 
   private void displayEventInfo() {
+    //set all the fields with the event information
     SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
     capacitySpinner.setValueFactory(valueFactory);
     if (event != null) {
@@ -49,6 +51,7 @@ public class UpdateEventViewController {
   }
 
   @FXML private void updateEvent() {
+    //update event based on info in fields and show success alert
     eventManager.updateEvent(idField.getText(), titleField.getText(), locationField.getText(), capacitySpinner.getValue(), specificField.getText(), specificLabel.getText());
     Alert alert =  new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Event Updated");

@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CreateEventViewController implements Initializable {
+  //Fields for event information
   @FXML private TextField idField;
   @FXML private TextField titleField;
   @FXML private TextField dateField;
@@ -24,6 +25,7 @@ public class CreateEventViewController implements Initializable {
 
   @FXML
   private void addEvent() {
+    //on button press, get text from the fields
     String eventId = idField.getText();
     String title = titleField.getText();
     String date = dateField.getText();
@@ -32,6 +34,7 @@ public class CreateEventViewController implements Initializable {
     String type = typeBox.getValue();
     String specific = specificField.getText();
     EventManager eventManager = EventManager.getInstance();
+    //create specific event based on type
     try{
       if(type.equals("Concert")) {
         Concert concert = new Concert(eventId, title, date, location, capacity, "Active",  specific);
@@ -44,6 +47,7 @@ public class CreateEventViewController implements Initializable {
         eventManager.addEvent(workshop);
       }
     }catch(IllegalArgumentException e){
+      //catch error, make alert
       Alert alert =  new Alert(Alert.AlertType.ERROR);
       alert.setTitle("Event Creation Error");
       alert.setHeaderText(null);
@@ -51,6 +55,7 @@ public class CreateEventViewController implements Initializable {
       alert.showAndWait();
     }
 
+    //clear fields then show alert for success
     idField.clear();
     titleField.clear();
     dateField.clear();
@@ -64,12 +69,14 @@ public class CreateEventViewController implements Initializable {
     alert.setContentText("Created Event: "+title+" | "+eventId);
     alert.showAndWait();
 
+    //go back to event screen
     MainViewController.getInstance().loadEventScreen();
   }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
+    //limit spinner values, initialize dropdown
+    SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0);
     capacitySpinner.setValueFactory(valueFactory);
     typeBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
       if(newValue == null) {

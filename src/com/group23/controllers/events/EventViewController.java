@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class EventViewController implements Initializable {
+  //initialize event table and search stuff
   @FXML private TableView<Event> eventTable;
   @FXML private TableColumn<Event, String> idColumn;
   @FXML private TableColumn<Event, String> titleColumn;
@@ -30,6 +31,7 @@ public class EventViewController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    //initialize tables and set up dropdown
     eventList = FXCollections.observableArrayList(eventManager.listAllEvents());
     idColumn.setCellValueFactory(new PropertyValueFactory<>("eventID"));
     titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -59,11 +61,13 @@ public class EventViewController implements Initializable {
 
   @FXML
   private void viewCreateEventForm() {
+    //go to create event page
     MainViewController.getInstance().loadCreateEventScreen();
   }
 
   @FXML
   private void viewUpdateEventForm() {
+    //go to update event page
     Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
     if (selectedEvent == null) return;
     MainViewController.getInstance().loadUpdateEventScreen(selectedEvent);
@@ -71,6 +75,7 @@ public class EventViewController implements Initializable {
 
   @FXML
   private void cancelEvent() {
+    //on event cancel, check if event is selected, then show success
     Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
     if (selectedEvent == null) return;
     eventManager.cancelEvent(selectedEvent.getEventID());
@@ -83,6 +88,7 @@ public class EventViewController implements Initializable {
   }
 
   public void reloadTable() {
+    //reload event table
     eventTable.setItems(eventList);
   }
 }
