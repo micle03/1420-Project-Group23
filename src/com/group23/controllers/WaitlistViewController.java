@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class WaitlistViewController implements Initializable {
+  //manager instances and table
   private Event event;
-  private BookingService bookingService = BookingService.getInstance();
   waitlistManager WaitlistManager = waitlistManager.getInstance();
   private EventManager eventManager = EventManager.getInstance();
   @FXML private TableView<User> userTable;
@@ -36,6 +36,7 @@ public class WaitlistViewController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    //initialize waitlist table and event name converter
     idColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -72,11 +73,13 @@ public class WaitlistViewController implements Initializable {
   }
 
   private void reloadTable() throws IOException {
+    //reload table to show users for selected event
     ObservableList<User> users = FXCollections.observableArrayList(WaitlistManager.getWaitlistedUsers(event.getEventID()));
     userTable.setItems(users);
   }
 
   @FXML private void removeBooking() throws IOException {
+    //remove booking and show alert for the removed booking
     User selectedUser = userTable.getSelectionModel().getSelectedItem();
     if (selectedUser == null) return;
     Alert alert =  new Alert(Alert.AlertType.INFORMATION);

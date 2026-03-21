@@ -26,8 +26,11 @@ public class MainViewController {
   }
 
   public static MainViewController getInstance() {
+    //instance of controller so the user can switch pages
     return instance;
   }
+
+  //methods for loading different screens
   public void loadUserScreen() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group23/users/user-view.fxml"));
@@ -123,6 +126,7 @@ public class MainViewController {
   }
 
   private void loadPage(String fxmlFile) {
+    //loads page from fxml file
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
       Parent page = loader.load();
