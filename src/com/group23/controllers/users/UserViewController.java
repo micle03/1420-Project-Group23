@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UserViewController implements Initializable {
+  //user table variables
   @FXML private TableView<User> userTable;
   @FXML private TableColumn<User, String> idColumn;
   @FXML private TableColumn<User, String> nameColumn;
@@ -25,6 +26,7 @@ public class UserViewController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    //initialize user table
     idColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -32,6 +34,7 @@ public class UserViewController implements Initializable {
   }
 
   public void reloadTable() {
+    //reload table to show users
     ObservableList<User> observableUsers =
       FXCollections.observableArrayList(userManager.getAllUsers());
     userTable.setItems(observableUsers);
@@ -39,11 +42,13 @@ public class UserViewController implements Initializable {
 
   @FXML
   private void viewCreateUserForm() {
+    //go to create user screen
     MainViewController.getInstance().loadCreateUserScreen();
   }
 
   @FXML
   private void handleViewUser() {
+    //go to user detail screen if user is selected
     User selectedUser = userTable.getSelectionModel().getSelectedItem();
     if (selectedUser == null) return;
     MainViewController.getInstance().loadUserDetailScreen(selectedUser);

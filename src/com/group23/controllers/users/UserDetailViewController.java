@@ -14,11 +14,13 @@ public class UserDetailViewController {
   @FXML private Label typeLabel;
 
   public void setUser(User user) {
+    //set user to view details of
     this.user = user;
     displayUserInfo();
   }
 
   private void displayUserInfo() {
+    //show text from user info
     if (user != null) {
       idLabel.setText(user.getUserId());
       nameLabel.setText(user.getName());
@@ -29,6 +31,7 @@ public class UserDetailViewController {
 
   @FXML
   private void goBack() {
+    //go to user screen
     MainViewController.getInstance().loadUserScreen();
   }
 }
