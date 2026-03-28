@@ -131,6 +131,9 @@ public class BookingService {
             }
         }
 
+        //gets rid of booking from csv file
+        saveBookingsToFile();
+
         return booking;
     }
 
