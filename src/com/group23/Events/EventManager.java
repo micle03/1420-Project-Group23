@@ -20,6 +20,9 @@ public class EventManager {
         }
         bookingService.registerEvent(event.getEventID(), event.getCapacity(), event.getStatus());
         events.put(event.getEventID(), event);
+
+        //saves new event to csv file
+        saveEventsToFile();
     }
 
     // update event
@@ -33,12 +36,18 @@ public class EventManager {
         event.setCapacity(capacity);
         event.setDateTime(dateTime);
         event.setSpecific(specific);
+
+        //saves changes to an event to csv file
+        saveEventsToFile();
     }
 
     // cancel event
     public void cancelEvent(String eventId) {
         Event event = getEvent(eventId);
         event.cancelEvent();
+
+        //saves csv file without the deleted event
+        saveEventsToFile();
     }
 
     // listing event
@@ -69,5 +78,19 @@ public class EventManager {
             throw new IllegalArgumentException("model.Event not found.");
         }
         return events.get(eventId);
+    }
+
+    //file writer
+    public void saveEventsToFile() {
+        //creates a writer and tries to write to the events.csv
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter("events.csv"))) {
+            //header of the csv
+            writer.println("eventID,title,dateTime,location,capacity,status,eventType,topic,speakerName,ageRestriction");
+            for (Event event : events.values()) {
+                writer.println(event.toCsvFormat());
+            }
+        } catch (java.io.IOException e) {
+            System.out.println("Error saving something in events: " + e.getMessage());
+        }
     }
 }
