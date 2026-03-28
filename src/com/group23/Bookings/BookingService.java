@@ -101,6 +101,10 @@ public class BookingService {
         );
 
         bookingsById.put(booking.getBookingId(), booking);
+
+        //saves booking to csv file
+        saveBookingsToFile();
+
         return booking;
     }
 
@@ -184,6 +188,20 @@ public class BookingService {
 
     private String generateBookingId() {
         return "B" + (bookingCounter++);
+    }
+
+    //file writer
+    public void saveBookingsToFile() {
+        //creates a writer and tries to write to the bookings.csv
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter("bookings.csv"))) {
+            //header of the csv
+            writer.println("bookingID,userID,eventID,createdAt,bookingStatus");
+            for (Booking booking : bookingsById.values()) {
+                writer.println(booking.toCsvFormat());
+            }
+        } catch (java.io.IOException e) {
+            System.out.println("Error saving something in bookings: " + e.getMessage());
+        }
     }
 }
 
