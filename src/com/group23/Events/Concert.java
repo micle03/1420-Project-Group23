@@ -24,6 +24,13 @@ public class Concert extends Event {
     public void setSpecific(String specific) {
         setAgeRestriction(specific);
     }
+
+    //overrides csv format for a concert event
+    @Override
+    public String toCsvFormat() {
+        return String.format("%s,%s,%s,%s,%d,%s,Concert,,,%s",
+                getEventID(), getTitle(), getDateTime(), getLocation(), getCapacity(), getStatus(), ageRestriction);
+    }
         
     @Override
     public EventType getEventType() {

@@ -24,4 +24,9 @@ public class Booking {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public BookingStatus getStatus() { return status; }
     public void setStatus(BookingStatus status) { this.status = status; }
+
+    //this formats the booking for a csv file
+    public String toCsvFormat() {
+        return String.format("%s,%s,%s,%s,%s", bookingId, userId, eventId, createdAt, status);
+    }
 }

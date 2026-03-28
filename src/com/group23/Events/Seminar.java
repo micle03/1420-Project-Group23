@@ -21,6 +21,13 @@ public class Seminar extends Event {
         setSpeakerName(specific);
     }
 
+    //overrides csv format for a seminar event
+    @Override
+    public String toCsvFormat() {
+        return String.format("%s,%s,%s,%s,%d,%s,Seminar,,%s,",
+                getEventID(), getTitle(), getDateTime(), getLocation(), getCapacity(), getStatus(), speakerName);
+    }
+
      @Override
     public EventType getEventType() {
         return EventType.SEMINAR;
