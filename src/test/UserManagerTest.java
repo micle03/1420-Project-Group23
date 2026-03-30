@@ -1,6 +1,7 @@
 package test;
 
 import com.group23.model.*;
+import com.group23.service.UserManager;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,5 +14,35 @@ public class UserManagerTest {
 
         assertEquals("Guest", g.getUserType());
         assertEquals(1, g.getMaxConfirmedBookings());
+    }
+
+    @Test
+    void testCreateUserAndAddToManager() {
+        UserManager manager = new UserManager();
+
+        User user = manager.createUser("U002", "Bob", "b@email.com", "guest");
+
+        assertEquals("U002", user.getUserId());
+        assertEquals(1, manager.getTotalUsers());
+    }
+
+    @Test
+    void testGetUserById() {
+        UserManager manager = new UserManager();
+        User createdUser = manager.createUser("U003", "Alice", "a@email.com", "student");
+
+        User foundUser = manager.getUserById("U003");
+
+        assertEquals(createdUser, foundUser);
+    }
+
+    @Test
+    void testDuplicateUserIdThrowsException() {
+        UserManager manager = new UserManager();
+        manager.createUser("U004", "First", "first@email.com", "staff");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            manager.createUser("U004", "Second", "second@email.com", "guest");
+        });
     }
 }
