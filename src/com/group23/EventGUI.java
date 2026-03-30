@@ -7,8 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class EventGUI extends Application {
-  @Override
+public class EventGUI extends Application {  @Override
   public void start(Stage stage) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(EventGUI.class.getResource("main-view.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 600, 400);

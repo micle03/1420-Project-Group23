@@ -22,7 +22,6 @@ public abstract class User {
     public String getName() { return name; }
     public String getEmail() { return email; }
 
-    //Just the Front and Back
     public abstract int getMaxConfirmedBookings();
 
     public abstract String getUserType();
