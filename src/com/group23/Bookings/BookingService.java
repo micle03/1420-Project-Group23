@@ -1,61 +1,98 @@
-package com.group23.Bookings;
+package com.group23;
 
-import com.group23.Users.service.UserManager;
 import com.group23.Waitlist.waitlistManager;
-
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//ENUMS PRIVATE
+/*
+ * BookingStatus defines the possible states of a booking.
+ * Each booking can only be in one of these states.
+ */
+enum BookingStatus {
+    CONFIRMED,
+    WAITLISTED,
+    CANCELLED
+}
 
+/*
+ * UserType determines booking limits for users.
+ * Different user types have different maximum confirmed bookings.
+ */
 enum UserType {
     STUDENT,
     STAFF,
     GUEST
 }
 
-//booking model PRIVATE
+/*
+ * Booking represents a single reservation linking a user to an event.
+ * It stores identifying information and the current booking status.
+ */
+class Booking {
+    private final String bookingId;
+    private final String userId;
+    private final String eventId;
+    private final LocalDateTime createdAt;
+    private BookingStatus status;
 
-// Booking Class
-public class BookingService {
-    private static final BookingService instance = new BookingService();
-    public static BookingService getInstance() {
-        return instance;
+    public Booking(String bookingId, String userId, String eventId,
+                   LocalDateTime createdAt, BookingStatus status) {
+        this.bookingId = bookingId;
+        this.userId = userId;
+        this.eventId = eventId;
+        this.createdAt = createdAt;
+        this.status = status;
     }
-    waitlistManager WaitlistManager = waitlistManager.instance;
 
-    // Internal storage
+    public String getBookingId() { return bookingId; }
+    public String getUserId() { return userId; }
+    public String getEventId() { return eventId; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public BookingStatus getStatus() { return status; }
+
+    public void setStatus(BookingStatus status) { this.status = status; }
+}
+
+/*
+ * BookingService handles all booking-related operations.
+ * It enforces rules such as capacity, duplicate prevention,
+ * booking limits, and waitlist integration.
+ */
+public class BookingService {
+
+    // In-memory storage for booking data
     private final Map<String, Booking> bookingsById = new HashMap<>();
     private final Map<String, Integer> eventCapacity = new HashMap<>();
     private final Map<String, Boolean> eventActive = new HashMap<>();
     private final Map<String, UserType> userTypes = new HashMap<>();
     private int bookingCounter = 9000;
 
+    // External waitlist manager
+    private final waitlistManager waitlistManager = new waitlistManager();
 
-    // Setup helpers
-    public void registerUser(String userId, String type) {
-        UserType userType = null;
-        if(type.equals("Staff")) {
-            userType = UserType.STAFF;
-        } else if (type.equals("Guest")) {
-            userType = UserType.GUEST;
-        } else if (type.equals("Student")) {
-            userType = UserType.STUDENT;
-        }
-        userTypes.put(userId, userType);
+    /*
+     * Registers a user and their type.
+     */
+    public void registerUser(String userId, UserType type) {
+        userTypes.put(userId, type);
     }
 
-    public void registerEvent(String eventId, int capacity, String status) {
-        boolean active = false;
-        if(status.equals("Active")) active = true;
+    /*
+     * Registers an event with its capacity and active status.
+     */
+    public void registerEvent(String eventId, int capacity, boolean active) {
         eventCapacity.put(eventId, capacity);
         eventActive.put(eventId, active);
+
+        // Create a waitlist file for the event
+        waitlistManager.createWaitlist(eventId);
     }
 
-    // Book Event
-    public Booking bookEvent(String userId, String eventId) throws IOException {
+    /*
+     * Creates a booking while enforcing all booking rules.
+     */
+    public Booking bookEvent(String userId, String eventId) {
 
         if (!userTypes.containsKey(userId))
             throw new IllegalArgumentException("User not found");
@@ -66,31 +103,27 @@ public class BookingService {
         if (!eventActive.get(eventId))
             throw new IllegalStateException("Event is cancelled");
 
-        // No duplicate bookings
+        // Prevent duplicate bookings for the same user and event
         if (hasActiveBooking(userId, eventId))
             throw new IllegalStateException("User already booked this event");
 
-        // Check user limit
+        // Count only confirmed bookings for this user
         int confirmedCount = (int) getUserBookings(userId).stream()
                 .filter(b -> b.getStatus() == BookingStatus.CONFIRMED)
                 .count();
 
+        // Enforce booking limit based on user type
         int maxAllowed = getMaxAllowed(userTypes.get(userId));
-        if (confirmedCount >= maxAllowed) {
-            throw new IllegalStateException("User can't book more events");
-        }
+        if (confirmedCount >= maxAllowed)
+            throw new IllegalStateException("User reached confirmed booking limit");
 
-        // Capacity check
+        // Check if the event still has space
         int confirmedForEvent = getConfirmedBookings(eventId).size();
 
         BookingStatus status =
                 (confirmedForEvent < eventCapacity.get(eventId))
                         ? BookingStatus.CONFIRMED
                         : BookingStatus.WAITLISTED;
-
-        if(status.equals(BookingStatus.WAITLISTED)) {
-            WaitlistManager.addToWaitlist(eventId, UserManager.getInstance().getUserById(userId));
-        }
 
         Booking booking = new Booking(
                 generateBookingId(),
@@ -102,13 +135,22 @@ public class BookingService {
 
         bookingsById.put(booking.getBookingId(), booking);
 
-        //saves booking to csv file
-        saveBookingsToFile();
+        // If event is full, also add this booking to the external waitlist file
+        if (status == BookingStatus.WAITLISTED) {
+            try {
+                waitlistManager.addToWaitlist(eventId, userId + ",temp");
+            } catch (Exception e) {
+                System.out.println("Error adding user to waitlist.");
+            }
+        }
 
         return booking;
     }
 
-    // Cancel Bookings
+    /*
+     * Cancels a booking.
+     * If the booking was confirmed, the first waitlisted user is promoted.
+     */
     public Booking cancelBooking(String bookingId) {
 
         Booking booking = bookingsById.get(bookingId);
@@ -121,24 +163,31 @@ public class BookingService {
         BookingStatus previous = booking.getStatus();
         booking.setStatus(BookingStatus.CANCELLED);
 
-        // Promote waitlist if needed
+        // If a confirmed booking is cancelled, promote from waitlist
         if (previous == BookingStatus.CONFIRMED) {
-            promoteFirstWaitlisted(booking.getEventId());
             try {
-                WaitlistManager.promoteUser(booking.getEventId());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                String promotedUser = waitlistManager.promoteUser(booking.getEventId());
+
+                if (promotedUser != null) {
+                    bookingsById.values().stream()
+                            .filter(b -> promotedUser.contains(b.getUserId()))
+                            .filter(b -> b.getEventId().equals(booking.getEventId()))
+                            .filter(b -> b.getStatus() == BookingStatus.WAITLISTED)
+                            .findFirst()
+                            .ifPresent(b -> b.setStatus(BookingStatus.CONFIRMED));
+                }
+
+            } catch (Exception e) {
+                System.out.println("Error promoting waitlisted user.");
             }
         }
-
-        //gets rid of booking from csv file
-        saveBookingsToFile();
 
         return booking;
     }
 
-    // Methods
-
+    /*
+     * Returns all bookings for a user, sorted by creation time.
+     */
     public List<Booking> getUserBookings(String userId) {
         return bookingsById.values().stream()
                 .filter(b -> b.getUserId().equals(userId))
@@ -146,6 +195,9 @@ public class BookingService {
                 .collect(Collectors.toList());
     }
 
+    /*
+     * Returns all confirmed bookings for an event.
+     */
     public List<Booking> getConfirmedBookings(String eventId) {
         return bookingsById.values().stream()
                 .filter(b -> b.getEventId().equals(eventId))
@@ -154,6 +206,9 @@ public class BookingService {
                 .collect(Collectors.toList());
     }
 
+    /*
+     * Returns all waitlisted bookings for an event.
+     */
     public List<Booking> getWaitlist(String eventId) {
         return bookingsById.values().stream()
                 .filter(b -> b.getEventId().equals(eventId))
@@ -162,9 +217,9 @@ public class BookingService {
                 .collect(Collectors.toList());
     }
 
-
-    // helpers
-
+    /*
+     * Checks whether the user already has an active booking for the event.
+     */
     private boolean hasActiveBooking(String userId, String eventId) {
         return bookingsById.values().stream()
                 .anyMatch(b ->
@@ -173,6 +228,9 @@ public class BookingService {
                                 b.getStatus() != BookingStatus.CANCELLED);
     }
 
+    /*
+     * Returns the booking limit for the given user type.
+     */
     private int getMaxAllowed(UserType type) {
         return switch (type) {
             case STUDENT -> 3;
@@ -181,47 +239,10 @@ public class BookingService {
         };
     }
 
-    private void promoteFirstWaitlisted(String eventId) {
-        List<Booking> waitlist = getWaitlist(eventId);
-        if (!waitlist.isEmpty()) {
-            Booking next = waitlist.get(0);
-            next.setStatus(BookingStatus.CONFIRMED);
-        }
-    }
-
+    /*
+     * Generates a unique booking ID.
+     */
     private String generateBookingId() {
         return "B" + (bookingCounter++);
     }
-
-    //file writer
-    public void saveBookingsToFile() {
-        //creates a writer and tries to write to the bookings.csv
-        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter("bookings.csv"))) {
-            //header of the csv
-            writer.println("bookingID,userID,eventID,createdAt,bookingStatus");
-            for (Booking booking : bookingsById.values()) {
-                writer.println(booking.toCsvFormat());
-            }
-        } catch (java.io.IOException e) {
-            System.out.println("Error saving something in bookings: " + e.getMessage());
-        }
-    }
 }
-
-/*
-bookingService.registerUser("U001", UserType.STUDENT);
-bookingService.registerUser("U002", UserType.STAFF);
-
-bookingService.registerEvent("E101", 2, true);
-
-Booking b = bookingService.bookEvent("U001", "E101");
-System.out.println(b.getStatus());
-
-bookingService.cancelBooking(b.getBookingId());
-
-
-
-
-
-
- */
