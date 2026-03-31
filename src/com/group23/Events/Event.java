@@ -73,5 +73,8 @@ public abstract class Event {
            " | Type: " + getEventType() +
            " | " + getTypeSpecificDetails();
      }
+
+     //calls the csv format so event can be formatted for a csv file
+    public abstract String toCsvFormat();
 }
     

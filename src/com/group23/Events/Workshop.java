@@ -25,6 +25,12 @@ public class Workshop extends Event {
         setTopic(specific);
     }
 
+    //overrides csv format for a workshop event
+    @Override
+    public String toCsvFormat() {
+        return String.format("%s,%s,%s,%s,%d,%s,Workshop,%s,,",
+                getEventID(), getTitle(), getDateTime(), getLocation(), getCapacity(), getStatus(), topic);
+    }
 
     @Override
     public EventType getEventType() {

@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.*;
 
 import com.group23.Bookings.BookingService;
 import com.group23.Users.model.User;
@@ -46,6 +47,10 @@ public class UserManager {
         //Stores inside HashMap
         usersById.put(userId, user);
         bookingService.registerUser(userId, userType);
+
+        //saves the user to the file
+        saveUsersToFile();
+
         return user;
     }
 
@@ -59,5 +64,18 @@ public class UserManager {
 
     public int getTotalUsers() {
         return usersById.size();
+    }
+
+    //file writer
+    public void saveUsersToFile() {
+        //creates a writer and tries to write to the users.csv
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter("users.csv"))) {
+            writer.println("userID,name,email,userType"); // Header of the csv
+            for (User user : usersById.values()) {
+                writer.println(user.toCsvFormat());
+            }
+        } catch (java.io.IOException e) {
+            System.out.println("Error saving something in users: " + e.getMessage());
+        }
     }
 }

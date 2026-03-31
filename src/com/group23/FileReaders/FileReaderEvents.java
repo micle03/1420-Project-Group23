@@ -8,6 +8,11 @@ import java.io.*;
 public class FileReaderEvents {
     private static EventManager eventManager = EventManager.getInstance();
 
+    //got rid of hardcoded strings in if statements below
+    private static final String TYPE_WORKSHOP = "Workshop";
+    private static final String TYPE_SEMINAR = "Seminar";
+    private static final String TYPE_CONCERT = "Concert";
+
     public static void readEvents(String fileName) {
         BufferedReader reader = null;
         String line = "";
@@ -38,13 +43,13 @@ public class FileReaderEvents {
                 Event newEvent = null;
 
                 //finds which event type is being called
-                if (eventType.equals("Workshop")) {
+                if (TYPE_WORKSHOP.equals(eventType)) {
                     String topic = events[7].trim();
                     newEvent = new Workshop(eventID, title, dateTime, location, capacity, status, topic);
-                } else if (eventType.equals("Seminar")) {
+                } else if (TYPE_SEMINAR.equals(eventType)) {
                     String speakerName = events[8].trim();
                     newEvent = new Seminar(eventID, title, dateTime, location, capacity, status, speakerName);
-                } else if (eventType.equals("Concert")) {
+                } else if (TYPE_CONCERT.equals(eventType)) {
                     String ageRestriction = events[9].trim();
                     newEvent = new Concert(eventID, title, dateTime, location, capacity, status, ageRestriction);
                 }
