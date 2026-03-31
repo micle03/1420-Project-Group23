@@ -1,58 +1,12 @@
-package com.group23;
+package com.group23.Bookings;
 
+import com.group23.Users.service.UserManager;
 import com.group23.Waitlist.waitlistManager;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/*
- * BookingStatus defines the possible states of a booking.
- * Each booking can only be in one of these states.
- */
-enum BookingStatus {
-    CONFIRMED,
-    WAITLISTED,
-    CANCELLED
-}
 
-/*
- * UserType determines booking limits for users.
- * Different user types have different maximum confirmed bookings.
- */
-enum UserType {
-    STUDENT,
-    STAFF,
-    GUEST
-}
-
-/*
- * Booking represents a single reservation linking a user to an event.
- * It stores identifying information and the current booking status.
- */
-class Booking {
-    private final String bookingId;
-    private final String userId;
-    private final String eventId;
-    private final LocalDateTime createdAt;
-    private BookingStatus status;
-
-    public Booking(String bookingId, String userId, String eventId,
-                   LocalDateTime createdAt, BookingStatus status) {
-        this.bookingId = bookingId;
-        this.userId = userId;
-        this.eventId = eventId;
-        this.createdAt = createdAt;
-        this.status = status;
-    }
-
-    public String getBookingId() { return bookingId; }
-    public String getUserId() { return userId; }
-    public String getEventId() { return eventId; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public BookingStatus getStatus() { return status; }
-
-    public void setStatus(BookingStatus status) { this.status = status; }
-}
 
 /*
  * BookingService handles all booking-related operations.
@@ -70,12 +24,25 @@ public class BookingService {
 
     // External waitlist manager
     private final waitlistManager waitlistManager = new waitlistManager();
+    private final UserManager userManager = new UserManager();
+    private static final BookingService instance = new BookingService();
+    public static BookingService getInstance() {
+        return instance;
+    }
 
     /*
      * Registers a user and their type.
      */
-    public void registerUser(String userId, UserType type) {
-        userTypes.put(userId, type);
+    public void registerUser(String userId, String type) {
+        UserType userType = null;
+        if(type.equals("Staff")) {
+            userType = UserType.STAFF;
+        } else if (type.equals("Guest")) {
+            userType = UserType.GUEST;
+        } else if (type.equals("Student")) {
+            userType = UserType.STUDENT;
+        }
+        userTypes.put(userId, userType);
     }
 
     /*
@@ -138,7 +105,7 @@ public class BookingService {
         // If event is full, also add this booking to the external waitlist file
         if (status == BookingStatus.WAITLISTED) {
             try {
-                waitlistManager.addToWaitlist(eventId, userId + ",temp");
+                waitlistManager.addToWaitlist(eventId, userManager.getUserById(userId));
             } catch (Exception e) {
                 System.out.println("Error adding user to waitlist.");
             }

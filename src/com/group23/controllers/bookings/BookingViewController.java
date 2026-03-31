@@ -102,18 +102,18 @@ public class BookingViewController implements Initializable {
     BookingService bookingService = BookingService.getInstance();
     try {
       bookingService.bookEvent(bookUser.getValue().getUserId(), bookEvent.getValue().getEventID());
-    } catch (IOException | IllegalArgumentException | IllegalStateException e) {
+      Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Event Booking Created");
+      alert.setHeaderText(null);
+      alert.setContentText("Booked Event: "+bookUser.getValue().getName()+" | "+bookEvent.getValue().getTitle());
+      alert.showAndWait();
+    } catch (IllegalArgumentException | IllegalStateException e) {
       Alert alert =  new Alert(Alert.AlertType.ERROR);
       alert.setTitle("Booking Creation Error");
       alert.setHeaderText(null);
       alert.setContentText(e.getMessage());
       alert.showAndWait();
     }
-    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Event Booking Created");
-    alert.setHeaderText(null);
-    alert.setContentText("Booked Event: "+bookUser.getValue().getName()+" | "+bookEvent.getValue().getTitle());
-    alert.showAndWait();
   }
 
   //cancel a booking and shows alert showing successful cancellation

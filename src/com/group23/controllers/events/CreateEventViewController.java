@@ -46,6 +46,11 @@ public class CreateEventViewController implements Initializable {
         Workshop workshop = new Workshop(eventId, title, date, location, capacity, "Active", specific);
         eventManager.addEvent(workshop);
       }
+      Alert alert =  new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Event Created");
+      alert.setHeaderText(null);
+      alert.setContentText("Created Event: "+title+" | "+eventId);
+      alert.showAndWait();
     }catch(IllegalArgumentException e){
       //catch error, make alert
       Alert alert =  new Alert(Alert.AlertType.ERROR);
@@ -63,11 +68,6 @@ public class CreateEventViewController implements Initializable {
     typeBox.setValue(null);
     specificField.clear();
 
-    Alert alert =  new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Event Created");
-    alert.setHeaderText(null);
-    alert.setContentText("Created Event: "+title+" | "+eventId);
-    alert.showAndWait();
 
     //go back to event screen
     MainViewController.getInstance().loadEventScreen();

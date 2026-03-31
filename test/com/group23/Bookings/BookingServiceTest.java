@@ -1,8 +1,7 @@
-package com.group23;
+package com.group23.Bookings; // This must match the src package name
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,11 +15,11 @@ public class BookingServiceTest {
     bookingService = new BookingService();
 
     // Users
-    bookingService.registerUser("U001", UserType.STUDENT);
-    bookingService.registerUser("U002", UserType.STUDENT);
-    bookingService.registerUser("U003", UserType.STAFF);
-    bookingService.registerUser("U004", UserType.GUEST);
-    bookingService.registerUser("U005", UserType.STUDENT);
+    bookingService.registerUser("U001", "Student");
+    bookingService.registerUser("U002", "Student");
+    bookingService.registerUser("U003", "Staff");
+    bookingService.registerUser("U004", "Guest");
+    bookingService.registerUser("U005", "Student");
 
     // Events
     bookingService.registerEvent("E101", 2, true);

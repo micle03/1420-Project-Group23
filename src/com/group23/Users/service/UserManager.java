@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.io.*;
 
 import com.group23.Bookings.BookingService;
+import com.group23.Bookings.UserType;
 import com.group23.Users.model.User;
 import com.group23.Users.model.Student;
 import com.group23.Users.model.Staff;
@@ -46,7 +47,11 @@ public class UserManager {
         }
         //Stores inside HashMap
         usersById.put(userId, user);
-        bookingService.registerUser(userId, userType);
+          switch (userType) {
+            case "Student" -> bookingService.registerUser(userId, "Student");
+            case "Staff" -> bookingService.registerUser(userId, "Staff");
+            case "Guest" -> bookingService.registerUser(userId, "Guest");
+          }
 
         //saves the user to the file
         saveUsersToFile();

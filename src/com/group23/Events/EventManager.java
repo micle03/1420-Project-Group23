@@ -18,7 +18,7 @@ public class EventManager {
         if (events.containsKey(event.getEventID())) {
             throw new IllegalArgumentException("Duplicate event ID.");
         }
-        bookingService.registerEvent(event.getEventID(), event.getCapacity(), event.getStatus());
+        bookingService.registerEvent(event.getEventID(), event.getCapacity(), Objects.equals(event.getStatus(), "Active"));
         events.put(event.getEventID(), event);
 
         //saves new event to csv file

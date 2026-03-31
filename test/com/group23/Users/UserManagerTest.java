@@ -1,8 +1,8 @@
-package test;
+package com.group23.Users;
 
-import com.group23.model.*;
-import com.group23.service.UserManager;
-
+import com.group23.Users.model.Guest;
+import com.group23.Users.model.User;
+import com.group23.Users.service.UserManager;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
