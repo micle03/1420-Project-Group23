@@ -17,7 +17,7 @@
 ```
      --module-path "LIBPATH" --add-modules javafx.controls,javafx.fxml
 ```
-     Replace `LIBPATH` with the path to your JavaFX SDK's `lib` folder.
+Replace `LIBPATH` with the path to your JavaFX SDK's `lib` folder.
 
 ### How To Execute The Text Suite
 
