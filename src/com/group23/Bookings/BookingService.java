@@ -2,6 +2,8 @@ package com.group23.Bookings;
 
 import com.group23.Users.service.UserManager;
 import com.group23.Waitlist.waitlistManager;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,8 +25,8 @@ public class BookingService {
     private int bookingCounter = 9000;
 
     // External waitlist manager
-    private final waitlistManager waitlistManager = new waitlistManager();
-    private final UserManager userManager = new UserManager();
+    private final waitlistManager WaitlistManager = waitlistManager.getInstance();
+    private final UserManager userManager = UserManager.getInstance();
     private static final BookingService instance = new BookingService();
     public static BookingService getInstance() {
         return instance;
@@ -53,7 +55,7 @@ public class BookingService {
         eventActive.put(eventId, active);
 
         // Create a waitlist file for the event
-        waitlistManager.createWaitlist(eventId);
+        WaitlistManager.createWaitlist(eventId);
     }
 
     /*
@@ -101,15 +103,15 @@ public class BookingService {
         );
 
         bookingsById.put(booking.getBookingId(), booking);
-
         // If event is full, also add this booking to the external waitlist file
         if (status == BookingStatus.WAITLISTED) {
             try {
-                waitlistManager.addToWaitlist(eventId, userManager.getUserById(userId));
+                WaitlistManager.addToWaitlist(eventId, UserManager.getInstance().getUserById(userId));
             } catch (Exception e) {
                 System.out.println("Error adding user to waitlist.");
             }
         }
+        saveBookingsToFile();
 
         return booking;
     }
@@ -132,21 +134,11 @@ public class BookingService {
 
         // If a confirmed booking is cancelled, promote from waitlist
         if (previous == BookingStatus.CONFIRMED) {
+            promoteFirstWaitlisted(booking.getEventId());
             try {
-                String promotedUser = waitlistManager.promoteUser(booking.getEventId());
-
-                if (promotedUser != null) {
-                    String promotedUserId = promotedUser.split(", ")[0];
-                    bookingsById.values().stream()
-                      .filter(b -> b.getUserId().equals(promotedUserId))
-                      .filter(b -> b.getEventId().equals(booking.getEventId()))
-                      .filter(b -> b.getStatus() == BookingStatus.WAITLISTED)
-                      .findFirst()
-                      .ifPresent(b -> b.setStatus(BookingStatus.CONFIRMED));
-                }
-
-            } catch (Exception e) {
-                System.out.println("Error promoting waitlisted user.");
+                WaitlistManager.promoteUser(booking.getEventId());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -212,5 +204,26 @@ public class BookingService {
      */
     private String generateBookingId() {
         return "B" + (bookingCounter++);
+    }
+
+    private void promoteFirstWaitlisted(String eventId) {
+        List<Booking> waitlist = getWaitlist(eventId);
+        if (!waitlist.isEmpty()) {
+            Booking next = waitlist.get(0);
+            next.setStatus(BookingStatus.CONFIRMED);
+        }
+    }
+
+    public void saveBookingsToFile() {
+        //creates a writer and tries to write to the bookings.csv
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.FileWriter("bookings.csv"))) {
+            //header of the csv
+            writer.println("bookingID,userID,eventID,createdAt,bookingStatus");
+            for (Booking booking : bookingsById.values()) {
+                writer.println(booking.toCsvFormat());
+            }
+        } catch (java.io.IOException e) {
+            System.out.println("Error saving something in bookings: " + e.getMessage());
+        }
     }
 }

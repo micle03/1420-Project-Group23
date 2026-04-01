@@ -51,6 +51,6 @@ public abstract class User {
     }
 
     public String toCsvFormat() {
-        return userId+", "+name+", "+email+", "+getUserType();
+        return userId+","+name+","+email+","+getUserType();
     }
 }

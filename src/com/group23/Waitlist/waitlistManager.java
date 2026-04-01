@@ -51,7 +51,7 @@ public class waitlistManager {
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))) {
-            writer.write(userData + ", Waitlisted");// Adds waitlisted to end of the users line
+            writer.write(userData + ",Waitlisted");// Adds waitlisted to end of the users line
             writer.newLine();
         }
     }
@@ -96,7 +96,7 @@ public class waitlistManager {
         List<String> lines = Files.readAllLines(path);
 
         for (String line : lines) {
-            String[] parts = line.split(", ");
+            String[] parts = line.split(",");
             if (parts.length >= 4) {
                 if(parts[3].equals("Staff")) {
                     Staff staff = new Staff(parts[0], parts[1], parts[2]);
