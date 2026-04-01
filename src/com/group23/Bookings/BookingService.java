@@ -136,12 +136,13 @@ public class BookingService {
                 String promotedUser = waitlistManager.promoteUser(booking.getEventId());
 
                 if (promotedUser != null) {
+                    String promotedUserId = promotedUser.split(", ")[0];
                     bookingsById.values().stream()
-                            .filter(b -> promotedUser.contains(b.getUserId()))
-                            .filter(b -> b.getEventId().equals(booking.getEventId()))
-                            .filter(b -> b.getStatus() == BookingStatus.WAITLISTED)
-                            .findFirst()
-                            .ifPresent(b -> b.setStatus(BookingStatus.CONFIRMED));
+                      .filter(b -> b.getUserId().equals(promotedUserId))
+                      .filter(b -> b.getEventId().equals(booking.getEventId()))
+                      .filter(b -> b.getStatus() == BookingStatus.WAITLISTED)
+                      .findFirst()
+                      .ifPresent(b -> b.setStatus(BookingStatus.CONFIRMED));
                 }
 
             } catch (Exception e) {

@@ -17,6 +17,10 @@ public class waitlistManager {
     }
 
     public void createWaitlist(String eventId) {
+        File dir = new File(directory);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
         File file = new File(directory + eventId + "_Waitlist.txt");
         try {
             if (file.createNewFile()) {
